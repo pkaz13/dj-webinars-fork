@@ -1,0 +1,59 @@
+-- Drop tables and types if they exist (for repeatability, optional)
+DROP TABLE IF EXISTS vehicle_employee CASCADE;
+DROP TABLE IF EXISTS vehicles CASCADE;
+DROP TABLE IF EXISTS employees CASCADE;
+DROP TABLE IF EXISTS employees_details CASCADE;
+DROP TYPE IF EXISTS employee_role;
+DROP TYPE IF EXISTS employee_status;
+DROP TYPE IF EXISTS vehicle_type;
+DROP TYPE IF EXISTS vehicle_status;
+
+-- Create custom enum types
+CREATE TYPE employee_role AS ENUM ('driver', 'dispatcher', 'manager');
+CREATE TYPE employee_status AS ENUM ('active', 'on leave', 'inactive');
+CREATE TYPE vehicle_type AS ENUM ('truck', 'van', 'car');
+CREATE TYPE vehicle_status AS ENUM ('available', 'on delivery', 'maintenance', 'offline');
+
+-- Employee table (no reference to current_vehicle)
+CREATE TABLE employees (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    role employee_role NOT NULL,
+    status employee_status NOT NULL,
+    contact_email VARCHAR(255) UNIQUE NOT NULL,
+    hire_date DATE NOT NULL
+);
+
+-- Employee details table (one-to-one with employees)
+CREATE TABLE employees_details (
+    id SERIAL PRIMARY KEY,
+    employee_id INT UNIQUE NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
+    address VARCHAR(255) NOT NULL,
+    postal_code VARCHAR(20) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    country VARCHAR(100) NOT NULL,
+    date_of_birth DATE NOT NULL,
+    gender VARCHAR(20) NOT NULL,
+    nationality VARCHAR(100) NOT NULL
+);
+
+-- Vehicle table (no reference to current_driver)
+CREATE TABLE vehicles (
+    id SERIAL PRIMARY KEY,
+    type vehicle_type NOT NULL,
+    license_plate VARCHAR(20) UNIQUE NOT NULL,
+    status vehicle_status NOT NULL,
+    last_maintenance_date DATE
+);
+
+-- Vehicle-Employee association table with additional columns
+CREATE TABLE vehicle_employee (
+    vehicle_id INT NOT NULL REFERENCES vehicles(id) ON DELETE CASCADE,
+    employee_id INT NOT NULL REFERENCES employees(id) ON DELETE CASCADE,
+    since_date DATE NOT NULL,
+    planned_leave_date DATE,
+    usage_notes TEXT,
+    is_primary BOOLEAN DEFAULT FALSE,
+    last_inspection_date DATE,
+    PRIMARY KEY (vehicle_id, employee_id, since_date)
+);
