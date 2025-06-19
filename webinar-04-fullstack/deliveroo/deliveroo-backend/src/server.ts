@@ -7,6 +7,10 @@ import redisClient from './redis';
 import { getAllEmployees, getAllVehiclesWithDriver } from './queries';
 import { mapVehicleRowsToDTOs } from './vehicle.model';
 import logger from './logger';
+import { insertEmployeeWithDetails } from './commands';
+import { validateEmployeeDTO } from './employee.validation';
+import { findEmployeeByNameDobGender } from './queries';
+import { EmployeeDTO } from './employee.model';
 
 const app = express();
 const port = process.env.NODE_APP_PORT;
@@ -37,6 +41,8 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization']
 };
 app.use(cors(corsOptions));
+
+app.use(express.json());
 
 // GET /vehicles endpoint
 app.get('/vehicles', async (req: Request, res: Response): Promise<void> => {
@@ -81,6 +87,34 @@ app.get('/employees', async (req: Request, res: Response): Promise<void> => {
     res.json(employees);
   } catch (err) {
     logger.error('Error fetching employees:', { err });
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// POST /employees endpoint
+app.post('/employees', async (req: Request, res: Response): Promise<void> => {
+  try {
+    const errors = validateEmployeeDTO(req.body);
+    if (errors.length > 0) {
+      res.status(400).json({ errors });
+      return;
+    }
+    // Convert date strings to Date objects
+    const dto: EmployeeDTO = {
+      ...req.body,
+      hireDate: new Date(req.body.hireDate),
+      dateOfBirth: new Date(req.body.dateOfBirth),
+    };
+    // Check for duplicate only if all properties are present
+    const existing = await findEmployeeByNameDobGender(dto.name, dto.dateOfBirth, dto.gender);
+    if (existing) {
+      res.status(400).json({ errors: ['Employee with the same name, date of birth, and gender already exists.'] });
+      return;
+    }
+    const newId = await insertEmployeeWithDetails(dto);
+    res.status(200).json({ id: newId });
+  } catch (err) {
+    logger.error('Error inserting employee:', { err });
     res.status(500).json({ error: 'Internal server error' });
   }
 });

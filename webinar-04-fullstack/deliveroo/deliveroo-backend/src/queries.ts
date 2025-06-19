@@ -125,3 +125,20 @@ export async function getDriversWithoutVehiclesCount() {
   `);
   return Number(result.rows[0].drivers_without_vehicles);
 }
+
+/**
+ * Checks if an employee exists by name, date of birth, and gender.
+ * Returns the employee if found, otherwise null.
+ */
+export async function findEmployeeByNameDobGender(name: string, dateOfBirth: Date, gender: string) {
+  const dobStr = dateOfBirth.toISOString().slice(0, 10);
+  const result = await pool.query(
+    `SELECT e.*, ed.date_of_birth, ed.gender
+     FROM employees e
+     JOIN employees_details ed ON e.id = ed.employee_id
+     WHERE e.name = $1 AND ed.date_of_birth = $2 AND ed.gender = $3
+     LIMIT 1`,
+    [name, dobStr, gender]
+  );
+  return result.rows[0] || null;
+}

@@ -1,0 +1,34 @@
+@PORT=3000
+
+### Get all employees
+GET http://localhost:{{PORT}}/employees/
+Accept: application/json
+
+### Create a new employee (valid)
+POST http://localhost:{{PORT}}/employees
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Jan Kowalski",
+  "role": "driver",
+  "status": "active",
+  "contactEmail": "jan.kowalski@example.com",
+  "hireDate": "1999-05-01",
+  "address": "123 Main St",
+  "postalCode": "12345",
+  "city": "Sample City",
+  "country": "Sampleland",
+  "dateOfBirth": "1980-01-01",
+  "gender": "male",
+  "nationality": "Polish"
+}
+
+### Create a new employee (missing required fields)
+POST http://localhost:{{PORT}}/employees
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "John Doe"
+} 

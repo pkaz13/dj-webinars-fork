@@ -4019,3 +4019,8 @@ INSERT INTO vehicle_employee (vehicle_id, employee_id, since_date, planned_leave
 (497, 647, '2023-10-14', NULL, 'Quo patruus taedium tollo.', FALSE, '2024-04-06'),
 (497, 244, '2024-09-28', NULL, 'Expedita vicissitudo aro voveo.', TRUE, '2025-04-18'),
 (497, 212, '2023-08-09', NULL, 'Suasoria vos accusator depono velum.', FALSE, '2023-08-12');
+
+
+-- Fix the employees_id_seq sequence after seeding
+SELECT setval('employees_id_seq', (SELECT MAX(id) FROM employees));
+SELECT setval('vehicles_id_seq', (SELECT MAX(id) FROM vehicles));

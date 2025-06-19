@@ -267,6 +267,11 @@ function main() {
 
   // Write to file
   fs.writeFileSync(config.outputFile, sql);
+
+  // Append SQL to fix sequences for SERIAL primary key tables
+  const sequenceFix = `\n-- Fix sequences for SERIAL primary key tables\nSELECT setval('employees_id_seq', (SELECT MAX(id) FROM employees));\nSELECT setval('vehicles_id_seq', (SELECT MAX(id) FROM vehicles));\n`;
+  fs.appendFileSync(config.outputFile, sequenceFix);
+
   console.log(`Seed SQL written to ${config.outputFile}`);
 }
 
