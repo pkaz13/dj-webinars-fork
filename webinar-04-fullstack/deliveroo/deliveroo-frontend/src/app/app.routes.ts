@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { RouterLink, Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 
 export const APP_ROUTES: Routes = [
@@ -22,8 +22,17 @@ export const APP_ROUTES: Routes = [
   },
   {
     path: 'personnel',
-    loadComponent: () => import('./features/personnel/personnel.component').then(m => m.PersonnelComponent),
-    canActivate: [authGuard]
+    canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./features/personnel/personnel.component').then(m => m.PersonnelComponent),
+      },
+      {
+        path: 'new',
+        loadComponent: () => import('./features/employee-onboarding/employee-onboarding.component').then(c => c.EmployeeOnboardingComponent)
+      }
+    ]
   },
   {
     path: 'delivery-process',

@@ -1,19 +1,20 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-personnel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   template: `
     <div class="container mx-auto px-4 py-8">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <h1 class="text-2xl font-bold">Personnel Management</h1>
         <div class="mt-4 md:mt-0">
-          <button class="btn btn-primary">
+          <a routerLink="new" class="btn btn-primary">
             <span class="material-icons mr-1">person_add</span>
             Add Personnel
-          </button>
+          </a>
         </div>
       </div>
 
@@ -88,9 +89,9 @@ import { CommonModule } from '@angular/common';
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-700">{{ person.hireDate }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-700">{{ person.currentVehicle }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <button class="text-primary-500 hover:text-primary-700 transition-colors mr-2">
+                    <a routerLink="edit/{{person.id}}" class="text-primary-500 hover:text-primary-700 transition-colors mr-2">
                       <span class="material-icons text-base">edit</span>
-                    </button>
+                    </a>
                     <button class="text-neutral-400 hover:text-neutral-600 transition-colors">
                       <span class="material-icons text-base">more_vert</span>
                     </button>
