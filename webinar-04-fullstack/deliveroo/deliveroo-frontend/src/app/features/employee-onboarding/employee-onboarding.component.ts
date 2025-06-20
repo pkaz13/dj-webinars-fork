@@ -64,10 +64,18 @@ import { finalize } from 'rxjs';
         }
 
         @if (submissionError) {
-          <div class="bg-error-50 border border-error-200 text-error-700 px-4 py-5 rounded-lg text-center animate-fade-in">
-            <span class="material-icons text-error-500 text-4xl">error</span>
-            <h3 class="text-xl font-semibold mt-2 mb-1">Submission Failed</h3>
-            <p class="mb-4">{{ submissionError }}</p>
+          <div class="bg-error-50 border border-error-200 text-error-700 px-4 py-5 rounded-lg text-left animate-fade-in">
+            <div class="flex">
+              <span class="material-icons text-error-500 text-2xl mr-3">error</span>
+              <div>
+                <h3 class="text-xl font-semibold mb-2">Submission Failed</h3>
+                <ul class="list-disc list-inside">
+                  @for(error of submissionError; track $index) {
+                    <li>{{ error }}</li>
+                  }
+                </ul>
+              </div>
+            </div>
           </div>
         }
       </div>
@@ -87,7 +95,7 @@ export class EmployeeOnboardingComponent {
   formSubmitted = false;
   visitedSteps = new Set<number>([0]);
   isSubmitting = false;
-  submissionError: string | null = null;
+  submissionError: string[] | null = null;
 
   employeeOnboardingForm: FormGroup = this.fb.group({
     // Step 1: Personal Information
@@ -146,8 +154,8 @@ export class EmployeeOnboardingComponent {
             this.formSubmitted = true;
             this.scrollToTop();
           },
-          error: (err) => {
-            this.submissionError = err.message;
+          error: (err: string[]) => {
+            this.submissionError = err;
             this.scrollToTop();
           }
         });

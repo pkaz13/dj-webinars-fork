@@ -3,6 +3,10 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 import { EmployeeDTO } from './employee.model';
 
+interface EmployeeApiError {
+  errors: string[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +21,15 @@ export class EmployeeOnboardingHttpService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    console.error('An error occurred:', error.error.message || error.statusText);
-    return throwError(() => new Error('Something bad happened; please try again later.'));
+    if (error.status === 400) {
+      const apiError = error.error as EmployeeApiError;
+      if (apiError && Array.isArray(apiError.errors)) {
+        return throwError(() => apiError.errors);
+      }
+    }
+    
+    const errorMessage = 'A server error occurred. Please try again later.';
+    console.error('An error occurred:', error.error);
+    return throwError(() => [errorMessage]);
   }
 }
