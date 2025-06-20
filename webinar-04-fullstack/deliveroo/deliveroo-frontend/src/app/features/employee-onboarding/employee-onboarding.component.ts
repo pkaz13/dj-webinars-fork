@@ -6,6 +6,8 @@ import { EmployeeOnboardingProgressTrackerComponent } from './components/employe
 import { EmployeeOnboardingStep01PersonalInfoComponent } from './components/employee-onboarding-step-01-personal-info.component';
 import { EmployeeOnboardingStep02JobInfoComponent } from './components/employee-onboarding-step-02-job-info.component';
 import { EmployeeRole, EmployeeStatus } from './employee.model';
+import { EmployeeOnboardingHttpService } from './employee-onboarding-http.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-employee-onboarding',
@@ -60,12 +62,21 @@ import { EmployeeRole, EmployeeStatus } from './employee.model';
             </div>
           </div>
         }
+
+        @if (submissionError) {
+          <div class="bg-error-50 border border-error-200 text-error-700 px-4 py-5 rounded-lg text-center animate-fade-in">
+            <span class="material-icons text-error-500 text-4xl">error</span>
+            <h3 class="text-xl font-semibold mt-2 mb-1">Submission Failed</h3>
+            <p class="mb-4">{{ submissionError }}</p>
+          </div>
+        }
       </div>
     </div>
   `
 })
 export class EmployeeOnboardingComponent {
   private fb = inject(FormBuilder);
+  private employeeOnboardingHttpService = inject(EmployeeOnboardingHttpService);
 
   steps = [
     { id: 'personal', label: 'Personal Information' },
@@ -75,6 +86,8 @@ export class EmployeeOnboardingComponent {
   currentStep = 0;
   formSubmitted = false;
   visitedSteps = new Set<number>([0]);
+  isSubmitting = false;
+  submissionError: string | null = null;
 
   employeeOnboardingForm: FormGroup = this.fb.group({
     // Step 1: Personal Information
@@ -122,12 +135,22 @@ export class EmployeeOnboardingComponent {
 
   submitForm() {
     if (this.employeeOnboardingForm.valid) {
-      console.log('Form Submitted:', this.employeeOnboardingForm.value);
-      // Simulate API call
-      setTimeout(() => {
-        this.formSubmitted = true;
-        this.scrollToTop();
-      }, 1500);
+      this.isSubmitting = true;
+      this.submissionError = null;
+      this.employeeOnboardingHttpService.addEmployee(this.employeeOnboardingForm.value)
+        .pipe(
+          finalize(() => this.isSubmitting = false)
+        )
+        .subscribe({
+          next: () => {
+            this.formSubmitted = true;
+            this.scrollToTop();
+          },
+          error: (err) => {
+            this.submissionError = err.message;
+            this.scrollToTop();
+          }
+        });
     } else {
       this.employeeOnboardingForm.markAllAsTouched();
     }
