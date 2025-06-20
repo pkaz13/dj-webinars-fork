@@ -1,0 +1,29 @@
+@wms-api = http://localhost:3001
+
+# GET /health
+GET {{wms-api}}/health
+
+###
+
+# GET /warehouse/1
+GET {{wms-api}}/warehouse/1
+
+###
+
+# GET /employees
+GET {{wms-api}}/employees
+
+###
+
+# GET /employees/1
+GET {{wms-api}}/employees/1
+
+###
+
+# GET /payments
+GET {{wms-api}}/payments
+
+###
+
+# GET /storage/1
+GET {{wms-api}}/storage/1

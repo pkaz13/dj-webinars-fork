@@ -3,8 +3,10 @@ import os
 import socket
 from flask import has_request_context, request
 import json
+from env import assert_env_var
 
-SERVICE_NAME = os.environ.get("SERVICE_NAME", "wms-api")
+assert_env_var("SERVICE_NAME")
+SERVICE_NAME = os.environ.get("SERVICE_NAME")
 
 class RequestContextFilter(logging.Filter):
     def filter(self, record):
@@ -57,3 +59,5 @@ def setup_logger():
     logger.addHandler(console_handler)
 
     return logger
+
+logger = setup_logger()

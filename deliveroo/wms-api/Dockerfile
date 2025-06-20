@@ -4,4 +4,4 @@ COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 EXPOSE 3001
-CMD ["python", "server.py"]
+CMD ["python", "src/run.py"]
