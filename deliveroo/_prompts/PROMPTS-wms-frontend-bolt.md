@@ -1,5 +1,11 @@
 initial prompt (bolt, na podstawie [perplexity](https://www.perplexity.ai/search/deliveroo-generating-wms-gui-s-p6qdU.xfSp65cN.H0dy06g)):
 
+## TOC:
+
+- initial prompt
+- follow up prompty
+- merge/dostosowanie wizualizacji D3/react do angulara (efekt: wszystko śmiga w angularze)
+
 ```
 # Comprehensive Warehouse Management System Specification
 
@@ -657,9 +663,12 @@ Efficient business processes are the backbone of warehouse operations, ensuring 
    - Storage record is marked as completed[30]
    - System releases reserved capacity[30]
    - Final documentation is generated and archived[30]
-```
 
-follow-up:
+----
+
+# follow-up prompts
+
+- follow-up:
 
 ```
 "inventory" Should include these features:
@@ -671,7 +680,7 @@ Stock Transfers: Management of inventory movement between locations
 Implement a dock management that would include a listing of the docks Specifying their status and availability. And if a dog is empty, then it's outlined. If it's occupied, then it says, like, occupied by what? It also tells some information about the reservations. But there is also a subpage for each doc details to see the availability and at what time is it going to be occupied and by what.
 ```
 
-follow-up:
+- follow-up:
 
 ```
 Implement the reports tab so that it would include:
@@ -687,7 +696,7 @@ Separate dashboard stats from warehouse service into dashboard service.
 Separate all mock object data into separate files. So that would be app/usermanagement/users.mock.ts - Move away from auth service. Similarly, please move away the warehouse mock data away from warehouse service into src/warehouse-map/warehouse.mock.ts. And so on and so forth.
 ```
 
-follow-up:
+- follow-up:
 
 ```
 I would like to have an icon somewhere near the WMS logo that would basically collapse the left-hand side navigation. You might need to refactor a little bit of HTML and CSS. Basically, whenever this icon is being clicked, I would like a nice animation that would basically gently hide the left-hand side navigation.
@@ -699,7 +708,7 @@ I want you to rename the inventory tab into Cargo Management tab. For each cargo
 There should also be a new tab called billing and payments that would deal with invoices, payments, financial reports, etc. Put a little bit of the stats at the top like total revenue, total invoices, paid invoices, overdue invoices, etc. And then put a sub-tabs similar to the cargo management view where we would have the invoice generation, payment processing, billing history, and financial reports. Invoice generation would include a list of invoices with actions such as view and edit and basic information such as the invoice number, the status like paid, sent, overdue, what is the company like issue date, due date, amount, paid and so on. There should also be a search by the name of the invoice or the status. The payment processing and billing history can be left unimplemented for now, so basically just generate the file but put a non-implemented yet. And the financial reports should include a financial report saying what is the revenue summary like total revenue, total invoices, paid invoices, overdue invoices, and performance metrics, average payment time, collection rate, average invoice value. There should also be some buttons such as export report and download PDF.
 ```
 
-follow-up:
+- follow-up:
 
 ```
 1. The main icon + label "WMS" should be clickable And lead to the main page.
@@ -720,8 +729,7 @@ follow-up:
 - " Active reservations" should link to the "reservations" tab.
 ```
 
-
-follow-up:
+- follow-up:
 
 ```
 Let's work on the "billing and payments" subpage.
@@ -737,13 +745,13 @@ Please create the "Customers" new tab inside the left-hand side navigation and t
 Inside the cargo management tab on the cargo listing, each row has a customer information, so this customer should be linked to a specific customer subpage (inside "customers" section). Same for cargo details. There is a part inside the cargo information about the customer. It should be linked to the customer details subpage. Similar in Reservations tab. Inside the listing, each row has a customer column and it should link to the customer's details subpage. And the same for billing and payment section inside the invoice generation tab. There is a customer column inside each row. And this should also be linked to the customer details subpage.
 ```
 
-follow-up:
+- follow-up:
 
 ```
 Please reformat the template of the invoice details file so that you use the built-in angular currency pipe and don't just display the dollar character explicitly. Use the built-in currency pipe.
 ```
 
-follow-up:
+- follow-up:
 
 ```
 Please rename the "users" tab into "employees". Implement a listing there and the details for a specific employee according to the following data structure:
@@ -820,7 +828,7 @@ Assignment date
 Finally, the settings tab should be basically the basic settings for the user, which include the email, the name and some other basic information.
 ```
 
-follow-up:
+- follow-up:
 
 ```
 Please split the cargo-details component into following new components. The cargo-details-information, Cargo-Event-Timeline, Cargo-Location-History, Cargo-Documentation.
@@ -832,7 +840,7 @@ Basically you're supposed to break two very big components into smaller componen
 Also, please implement the Cargo Listing Filter Service, which is going to implement a simple Angular service, including Angular native signals and computed. That would handle the search items, and that is the search name, the category, the status, and the zone. Basically, all the four filters used in the Cargo Management component.
 ```
 
-follow-up:
+- follow-up:
 
 ```
 Please refactor the components inside the customer's directory. Use Angular signal-based input functions instead of the @input decorators.
@@ -844,7 +852,7 @@ Then break the customers listing component into three smaller components. And th
 Also, create the customer listing filter service, which is going to be very similar to other services inside this repo, which would be a simple Angular service using Angular native signals and computates. And this service is going to handle the search customers and the statuses, so basically the two searching widgets inside the customer listing page.
 ```
 
-follow-up:
+- follow-up:
 
 ```
 Please split the Reservations component into smaller components, and that would be the Reservations stats, the Reservations listing, filters, and Reservations listing.
@@ -852,13 +860,13 @@ Please split the Reservations component into smaller components, and that would 
 Create the appropriate components in the new files nearby.
 ```
 
-follow-up:
+- follow-up:
 
 ```
 Extract smaller components from role management component. So each of the four tabs should be extracted as a smaller subcomponent. The role management tab, audit log component. Another role management tab, permission matrix component. Another role management tab, roles list component. And the last one, role management tab, user assignment component.
 ```
 
-follow-up:
+- follow-up:
 
 ```
 add a new navigation link (put it under "cargo management" navigation link) and implement subpage called "Warehouse Operations" Which should include 3 tabs (each as a separate component):
@@ -875,7 +883,7 @@ I want you to add this animation inside the customers tab. So for each customer 
 Finally, implement the form inside the customers section and there is an add customer button. So when the button is clicked, then there should be a pop-up opening and there should be a form for adding a customer with all the customer related information. There should be a cancel and submit button. After the submit button is being clicked, then a proper notification should also be shown. And of course, the pop-up should be closed.
 ```
 
-follow-up:
+- follow-up:
 
 ```
 Please split the dock management component into dock listing component and dock stats component.
@@ -883,7 +891,7 @@ Please split the dock management component into dock listing component and dock 
 Also, there is a Schedule Appointment button inside the Dock Management subpage. I want you to implement the whole form inside the Dock Form Schedule Appointment component. Now it should include all of the information about the new appointment. When the information is passed, there will be a Submit button, a Cancel button. When it's submitted correctly, then there is a notification being sent. notification to the notification service obviously.
 ```
 
-follow-up:
+- follow-up:
 
 ```
 Implement the storage request details component as it's missing right now.
@@ -892,13 +900,7 @@ Split the storage requests component into storage requests listing filters compo
 
 There should be also a new component, a storage request, form, new request. That would accept All the data required to create a new request and there would be a submit button, a console button similar as other forms inside the project. And when the submit is successfully being called, then there is a notification sent to the notification service. If there is some error from the backend, then there will be an error notification and the pop-up is being displayed and closed depending on whether the form is opened.
 ```
-
-follow-up:
-
-```
-```
-
-follow-up:
+- follow-up:
 
 ```
 Implement the storage request details component as it's missing right now.
@@ -908,8 +910,22 @@ Split the storage requests component into storage requests listing filters compo
 There should be also a new component, a storage-request-form-new-request. That would accept All the data required to create a new request and there would be a submit button, a console button similar as other forms inside the project. And when the submit is successfully being called, then there is a notification sent to the notification service. If there is some error from the backend, then there will be an error notification and the pop-up is being displayed and closed depending on whether the form is opened.
 ```
 
-follow-up:
+- follow-up:
 
 ```
 Please implement the new reservation form, a similar one that would look like a pop-up as other forms in the project. So that's where you walk into the reservations subpage and there is a new reservation button. So again, put all the details that might be necessary for a new reservation. There would be a submit and cancel button, same after submission, there would, a successful submission, there would be a information notification or an error notification that is being sent via the notification service.
+```
+
+---
+
+# merging D3 visualization (warehouse d3 visualization) into Angular codebase
+
+Wizualizacja warehouse w d3 została zrobiona w lovable, które umiało tylko w reacta. Dlatego komponent, który "embedował" wizualizację, reactowy, musiał zostać skonwertowany/dostosowany do Angulara.
+
+- poniższy prompt wykonał migrację
+- kontekst (prompta) zawierał angularowy `warehouse-map.component.ts`, ale dodatkowo wkleiłem obok (w tym samym folderze) 4 pliki z implementacji z lovable (3 x czysty TS = 1 x react)
+- model: Claude Sonnet 4 MAX (cursor)
+
+```
+@warehouse-map.component.ts There is a section visualization inside the warehouse-map component. Now we need to fill it with a warehouse visualization that comes from another file.@warehouse-visualization.ts The trick is that this visualization comes from a React project and was used directly inside the warehouse-dashboard.com.@WarehouseDashboard.tsx  We don't want to use this warehouse dashboard. You can just treat it as a point of reference how the refs were used. Now we would probably need some, I don't know, view child, view children. I don't know, basically some idiomatic Angular solution. So warehouse-visualization file includes standalone JavaScript functions that can be used with any framework. And they should be used most probably inside ngoninit, Angular component, I don't know. Here are two other very important files, the warehouse types, which includes the various types for definitions of what's going on inside the warehouse, and the warehouse-structure-generator, which generates randomized content for the warehouse. like you know, what are the racks, what are the aisles, what are the zones, etc.@warehouse-structure-generator.ts @warehouse.types.ts Your task is to correctly use and embed the warehouse visualization inside the visualization section of the Angular warehouse map component. You can take the React implementation only as a point of reference because I am going to remove it later. Now, do your best to make the visualization work inside Angular.
 ```

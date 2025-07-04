@@ -1,0 +1,33 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation platform('io.modelcontextprotocol.sdk:mcp-bom:0.10.0')
+    implementation 'io.modelcontextprotocol.sdk:mcp'
+}
+
+application {
+    mainClass = 'MarkdownMcpServer'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'MarkdownMcpServer'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

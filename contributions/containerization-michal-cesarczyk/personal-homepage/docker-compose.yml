@@ -1,0 +1,100 @@
+services:
+  website:
+    build:
+      context: ./apps/website
+      dockerfile: ./Dockerfile
+    container_name: personal-homepage-website
+    restart: always
+    environment:
+      - NODE_ENV=development
+      - API_URL=http://backend:5000
+      - API_PREFIX=/api/v1
+      - NEXT_PUBLIC_API_URL=http://backend:5000
+      - NEXT_PUBLIC_API_PREFIX=/api/v1
+    env_file:
+      - .env
+    ports:
+      - 3200:4200
+    expose:
+      - 3200
+    depends_on:
+      - backend
+
+  admin:
+    build:
+      context: ./apps/admin
+      dockerfile: ./Dockerfile
+    environment:
+      - NODE_ENV=development
+      - VITE_API_URL=http://backend:5000
+    container_name: personal-homepage-admin
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 3600:80
+    expose:
+      - 3600
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./apps/backend
+      dockerfile: ./Dockerfile
+    container_name: personal-homepage-backend
+    restart: always
+    environment:
+      - NODE_ENV=development
+      - BACKEND_PORT=5000
+      - PUBLIC_URL=http://localhost:4600
+      - FRONTEND_URL=http://website:4200
+      - ADMIN_URL=http://admin:80
+    env_file:
+      - .env
+    ports:
+      - 4600:5000
+    depends_on:
+      - db
+      - migrator
+    expose:
+      - 4600
+
+  migrator:
+    build:
+      context: ./apps/backend
+      dockerfile: ./Dockerfile.migrator.dev
+    container_name: personal-homepage-backend-migrator
+    env_file:
+      - .env
+    depends_on:
+      - db
+    command: ["./migrate-and-seed.sh"]
+
+  db:
+    restart: always
+    image: postgres:13
+    container_name: personal-homepage-db
+    env_file:
+      - .env
+    volumes:
+      - ph-db-data:/var/lib/postgresql/data
+    ports:
+      - 5600:5432
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: personal-homepage-pgadmin4
+    env_file:
+      - .env
+    ports:
+      - "8600:80"
+    volumes:
+      - ph-pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - db
+
+volumes:
+  ph-db-data:
+  ph-pgadmin-data:
