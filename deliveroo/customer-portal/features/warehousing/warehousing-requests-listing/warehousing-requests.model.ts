@@ -62,9 +62,9 @@ export const WAREHOUSING_STATUS_OPTIONS = [
 export const WAREHOUSING_STORAGE_TYPE_OPTIONS = [
   { value: '', label: 'All Storage Types' },
   { value: 'AMBIENT', label: 'Ambient' },
-  { value: 'REFRIGERATED', label: 'Refrigerated' },
+  { value: 'PERISHABLE', label: 'Perishable' },
   { value: 'FROZEN', label: 'Frozen' },
-  { value: 'CLIMATE_CONTROLLED', label: 'Climate Controlled' },
+  { value: 'DRY', label: 'Dry' },
   { value: 'HAZARDOUS', label: 'Hazardous' },
   { value: 'SECURE', label: 'Secure' }
 ];

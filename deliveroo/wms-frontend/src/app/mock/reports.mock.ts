@@ -1,4 +1,4 @@
-import { OperationalMetrics, UtilizationReport, FinancialReport, AuditTrail } from '../reports/reports.model';
+import { OperationalMetrics, UtilizationReport, FinancialReport, AuditTrail } from '../features/reports/reports.model';
 
 export const MOCK_OPERATIONAL_METRICS: OperationalMetrics = {
     throughput: 245,
@@ -53,11 +53,11 @@ export const MOCK_FINANCIAL_REPORT: FinancialReport = {
         { serviceName: 'Transportation', revenue: 75000, percentage: 6, color: '#EF4444' }
     ],
     billingDetails: [
-        { customerName: 'ABC Corp', amount: 45000, status: 'paid' },
-        { customerName: 'FreshFood Inc', amount: 28000, status: 'pending' },
-        { customerName: 'Global Logistics', amount: 15000, status: 'overdue' },
-        { customerName: 'Tech Solutions', amount: 32000, status: 'paid' },
-        { customerName: 'Manufacturing Co', amount: 18000, status: 'pending' }
+        { contractorName: 'Ward, Hall and Farley', amount: 45000, status: 'paid' },
+        { contractorName: 'Hart and Sons', amount: 28000, status: 'pending' },
+        { contractorName: 'Global Logistics', amount: 15000, status: 'overdue' },
+        { contractorName: 'Tech Solutions', amount: 32000, status: 'paid' },
+        { contractorName: 'Manufacturing Co', amount: 18000, status: 'pending' }
     ]
 };
 

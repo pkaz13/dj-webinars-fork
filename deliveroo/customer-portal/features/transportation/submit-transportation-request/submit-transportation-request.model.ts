@@ -20,6 +20,7 @@ export interface SubmitTransportationRequestForm {
   };
   cargo: {
     description: string;
+    cargoType: string;
     weight: number;
     packaging: string;
     quantity: number;
@@ -42,4 +43,4 @@ export interface SubmitTransportationRequestResponse {
   success: boolean;
   message: string;
   requestNumber: string;
-} 
+}

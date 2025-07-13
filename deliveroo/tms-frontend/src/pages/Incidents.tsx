@@ -1,11 +1,13 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { AlertTriangle, MapPin, Clock, Camera, FileText } from 'lucide-react';
 
 const Incidents = () => {
+  const navigate = useNavigate();
   const [incidents] = useState([
     {
       id: 'INC001',
@@ -109,7 +111,10 @@ const Incidents = () => {
           <h1 className="text-2xl font-bold text-gray-900">Incidents</h1>
           <p className="text-gray-600">Track and manage all reported incidents</p>
         </div>
-        <Button className="bg-red-600 hover:bg-red-700">
+        <Button 
+          className="bg-red-600 hover:bg-red-700"
+          onClick={() => navigate('/incidents/new')}
+        >
           Report New Incident
         </Button>
       </div>

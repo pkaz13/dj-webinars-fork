@@ -1,4 +1,4 @@
-import { DockAppointment } from "../warehouse-operations/warehouse-operations.model";
+import { DockAppointment } from "../features/warehouse-operations/warehouse-operations.model";
 
 export const MOCK_DOCK_APPOINTMENTS: DockAppointment[] = [
     {

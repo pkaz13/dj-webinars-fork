@@ -24,6 +24,7 @@ const menuItems = [
   { title: 'Urgent', url: '/urgent', icon: '🚨' },
   { title: 'Shipments', url: '/shipments', icon: '🚚' },
   { title: 'Drivers', url: '/drivers', icon: '👨‍💼' },
+  { title: 'Expenses', url: '/expenses', icon: '💷' },
   { title: 'Payments', url: '/payments', icon: '💳' },
   { title: 'Vehicle Fleet', url: '/vehicle-fleet', icon: '🗺️' },
   { title: 'Transit Incidents', url: '/incidents', icon: '⚠️' },

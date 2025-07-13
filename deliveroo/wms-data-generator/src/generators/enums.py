@@ -1,13 +1,9 @@
 ROLES = [
-    {'id': 1, 'name': 'warehouse_manager', 'description': 'Oversees all warehouse operations, staff, and safety.'},
-    {'id': 2, 'name': 'logistics_coordinator', 'description': 'Manages logistics and distribution processes.'},
-    {'id': 3, 'name': 'inventory_controller', 'description': 'Manages inventory accuracy, cycle counts, and stock reconciliation.'},
-    {'id': 4, 'name': 'receiving_clerk', 'description': 'Handles inbound shipments, inspects and records received goods.'},
-    {'id': 5, 'name': 'shipping_clerk', 'description': 'Prepares and processes outbound shipments and documentation.'},
-    {'id': 6, 'name': 'forklift_operator', 'description': 'Operates forklifts and other material handling equipment within the warehouse.'},
-    {'id': 7, 'name': 'safety_officer', 'description': 'Ensures safety and compliance in warehouse operations.'},
-    {'id': 8, 'name': 'returns_specialist', 'description': 'Handles returns and returns processing.'},
-    {'id': 9, 'name': 'customer_service', 'description': 'Handles customer inquiries and complaints.'}
+    {'id': 1, 'name': 'DIRECTOR', 'description': 'Executive director overseeing all warehouse operations and strategic planning.'},
+    {'id': 2, 'name': 'WAREHOUSE_MANAGER', 'description': 'Oversees all warehouse operations, staff management, and safety protocols.'},
+    {'id': 3, 'name': 'LOGISTICS_COORDINATOR', 'description': 'Manages logistics, distribution processes, and supply chain coordination.'},
+    {'id': 4, 'name': 'STORAGE_APPROVER', 'description': 'Reviews and approves storage requests and reservation decisions.'},
+    {'id': 5, 'name': 'OPERATOR', 'description': 'Handles day-to-day warehouse operations including receiving, shipping, and inventory management.'}
 ]
 
 CARGO_EVENT_TYPES = [
@@ -16,9 +12,13 @@ CARGO_EVENT_TYPES = [
     {'id': 3, 'name': 'DISPATCHED', 'description': 'Cargo dispatched from warehouse'},
     {'id': 4, 'name': 'DAMAGED', 'description': 'Cargo found damaged'},
     {'id': 5, 'name': 'LOST', 'description': 'Cargo missing or lost'},
-    {'id': 6, 'name': 'CUSTOMER_CONTACT', 'description': 'Contact with customer regarding storage'},
+    {'id': 6, 'name': 'CONTRACTOR_CONTACT', 'description': 'Contact with contractor regarding storage'},
     {'id': 7, 'name': 'QUALITY_ISSUE', 'description': 'Quality-related issue reported'},
     {'id': 8, 'name': 'SAFETY_INCIDENT', 'description': 'Safety or accident incident reported'}
+]
+
+PARTY_RELATIONSHIP_TYPES = [
+    {'id': 1, 'name': 'REPRESENTATIVE', 'description': 'An employee or agent acting on behalf of a company.'},
 ]
 
 def sql_str(s):

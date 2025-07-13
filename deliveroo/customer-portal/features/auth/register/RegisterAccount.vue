@@ -265,13 +265,13 @@
         />
         <label for="terms" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">
           I agree to the
-          <a href="#" class="text-primary-600 hover:text-primary-500 dark:text-primary-400">
+          <NuxtLink to="/terms-of-service" class="text-primary-600 hover:text-primary-500 dark:text-primary-400">
             Terms of Service
-          </a>
+          </NuxtLink>
           and
-          <a href="#" class="text-primary-600 hover:text-primary-500 dark:text-primary-400">
+          <NuxtLink to="/privacy-policy" class="text-primary-600 hover:text-primary-500 dark:text-primary-400">
             Privacy Policy
-          </a>
+          </NuxtLink>
         </label>
       </div>
 

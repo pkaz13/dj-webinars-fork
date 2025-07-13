@@ -1,4 +1,4 @@
-import { DashboardStats, Task } from "../dashboard/dashboard.model";
+import { DashboardStats, Task } from "../features/dashboard/dashboard.model";
 
 export const MOCK_DASHBOARD_STATS: DashboardStats = {
     totalCapacity: 18000,

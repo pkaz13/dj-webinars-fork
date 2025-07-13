@@ -9,26 +9,27 @@ warehouse_bp = Blueprint('warehouse_bp', __name__)
 def get_warehouse_employees(warehouse_id):
     query = text('''
         SELECT
-            e.employee_id,
-            e.name AS employee_name,
-            e.email,
-            e.phone,
-            e.hire_date,
+            p.party_id AS employee_id,
+            p.name AS employee_name,
+            p.contact_email AS email,
+            p.contact_phone AS phone,
+            p.created_at AS hire_date,
             STRING_AGG(r.name, ', ') AS roles
         FROM
-            employee e
+            party p
         JOIN
-            employee_warehouse ew ON e.employee_id = ew.employee_id
+            employee_warehouse ew ON p.party_id = ew.party_id
         JOIN
-            employee_role er ON e.employee_id = er.employee_id
+            party_role pr ON p.party_id = pr.party_id
         JOIN
-            role r ON er.role_id = r.role_id
+            role r ON pr.role_id = r.role_id
         WHERE
             ew.warehouse_id = :warehouse_id
+            AND p.data->>'type' = 'employee'
         GROUP BY
-            e.employee_id, e.name, e.email, e.phone, e.hire_date
+            p.party_id, p.name, p.contact_email, p.contact_phone, p.created_at
         ORDER BY
-            e.name;
+            p.name;
     ''')
     with db_engine.connect() as conn:
         result = conn.execute(query, {'warehouse_id': warehouse_id})

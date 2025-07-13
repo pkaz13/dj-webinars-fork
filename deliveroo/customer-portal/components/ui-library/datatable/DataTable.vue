@@ -147,7 +147,7 @@
 
 <script setup lang="ts">
 import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
-import Pagination from '~/components/ui-library/datatable/Pagination.vue'
+import Pagination from '~/components/ui-library/pagination/Pagination.vue'
 
 interface Column {
   key: string

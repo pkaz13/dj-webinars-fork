@@ -77,7 +77,10 @@ const Orders = () => {
           <h1 className="text-2xl font-bold text-gray-900">Transportation Orders</h1>
           <p className="text-gray-600">Manage your transportation orders and logistics</p>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
+        <Button 
+          className="bg-blue-600 hover:bg-blue-700"
+          onClick={() => navigate('/orders/new')}
+        >
           Create New Order
         </Button>
       </div>

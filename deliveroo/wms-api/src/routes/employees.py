@@ -9,22 +9,24 @@ employees_bp = Blueprint('employees_bp', __name__)
 def get_employees():
     query = text('''
         SELECT
-            e.employee_id,
-            e.name AS employee_name,
-            e.email,
-            e.phone,
-            e.hire_date,
+            p.party_id AS employee_id,
+            p.name AS employee_name,
+            p.contact_email AS email,
+            p.contact_phone AS phone,
+            p.created_at AS hire_date,
             STRING_AGG(r.name, ', ') AS roles
         FROM
-            employee e
+            party p
         JOIN
-            employee_role er ON e.employee_id = er.employee_id
+            party_role pr ON p.party_id = pr.party_id
         JOIN
-            role r ON er.role_id = r.role_id
+            role r ON pr.role_id = r.role_id
+        WHERE
+            p.data->>'type' = 'employee'
         GROUP BY
-            e.employee_id, e.name, e.email, e.phone, e.hire_date
+            p.party_id, p.name, p.contact_email, p.contact_phone, p.created_at
         ORDER BY
-            e.name;
+            p.name;
     ''')
     with db_engine.connect() as conn:
         result = conn.execute(query)
@@ -36,24 +38,25 @@ def get_employees():
 def get_employee(employee_id):
     query = text('''
         SELECT
-            e.employee_id,
-            e.name AS employee_name,
-            e.email,
-            e.phone,
-            e.hire_date,
+            p.party_id AS employee_id,
+            p.name AS employee_name,
+            p.contact_email AS email,
+            p.contact_phone AS phone,
+            p.created_at AS hire_date,
             STRING_AGG(r.name, ', ') AS roles
         FROM
-            employee e
+            party p
         JOIN
-            employee_role er ON e.employee_id = er.employee_id
+            party_role pr ON p.party_id = pr.party_id
         JOIN
-            role r ON er.role_id = r.role_id
+            role r ON pr.role_id = r.role_id
         WHERE
-            e.employee_id = :employee_id
+            p.data->>'type' = 'employee'
+            AND p.party_id = :employee_id
         GROUP BY
-            e.employee_id, e.name, e.email, e.phone, e.hire_date
+            p.party_id, p.name, p.contact_email, p.contact_phone, p.created_at
         ORDER BY
-            e.name;
+            p.name;
     ''')
     with db_engine.connect() as conn:
         result = conn.execute(query, {'employee_id': employee_id})

@@ -1,4 +1,4 @@
-import { InventoryItem, InventoryOverview } from '../inventory/inventory.model';
+import { InventoryItem, InventoryOverview } from '../features/inventory/inventory.model';
 
 export const MOCK_INVENTORY_OVERVIEW: InventoryOverview = {
   totalItems: 1250,
@@ -37,7 +37,7 @@ export const MOCK_INVENTORY_ITEMS: InventoryItem[] = [
     currency: 'USD',
     status: 'available',
     lastUpdated: new Date(),
-    customerId: 1,
-    customerName: 'ABC Corp',
+    contractorId: '6',
+    contractorName: 'Ward, Hall and Farley',
   },
 ]; 

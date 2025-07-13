@@ -113,11 +113,11 @@ python generate.py
 
 - The script will create an output file in the `output/` directory.
 - The filename will be in the format:  
-  `customers-YYYYMMDD-HHMMSS.sql`
+  `wms-YYYYMMDD-HHMMSS.sql`
 
 Example output path:
 ```
-output/customers-20250605-023701.sql
+output/wms-20250605-023701.sql
 ```
 
 ---
@@ -127,7 +127,7 @@ output/customers-20250605-023701.sql
 The generated file will contain SQL statements like:
 
 ```sql
-INSERT INTO customers (customer_id, name, city, email) VALUES (123456, 'John Doe', 'Springfield', 'john.doe@example.com');
+INSERT INTO stuff (stuff_id, name, city, email) VALUES (123456, 'John Doe', 'Springfield', 'john.doe@example.com');
 ```
 
 ---

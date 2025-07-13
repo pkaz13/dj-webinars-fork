@@ -1,11 +1,11 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify
 from application import logger
 from sqlalchemy import text
 from database import db_engine
 
 storage_bp = Blueprint('storage_bp', __name__)
 
-@storage_bp.route('/<int:record_id>', methods=['GET'])
+@storage_bp.route('/<int:record_id>/events', methods=['GET'])
 def get_storage_event_history(record_id):
     """Return the event history for a given storage record.
 
@@ -17,10 +17,10 @@ def get_storage_event_history(record_id):
             storage_record_id,
             event_type_id,
             event_time,
-            employee_id,
+            party_id,
             details
         FROM
-            storage_event_history
+            cargo_event_history
         WHERE
             storage_record_id = :record_id
         ORDER BY

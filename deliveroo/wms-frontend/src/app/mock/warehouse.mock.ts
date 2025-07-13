@@ -1,4 +1,4 @@
-import { Warehouse } from '../warehouse/warehouse.model';
+import { Warehouse } from '../features/warehouse/warehouse.model';
 
 export const MOCK_WAREHOUSES: Warehouse[] = [
   {

@@ -3,8 +3,8 @@ import { authGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
   {
-    path: 'login',
-    loadComponent: () => import('./auth/login.component').then(m => m.LoginComponent)
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.routes').then(m => m.AUTH_ROUTES)
   },
   {
     path: '',
@@ -13,89 +13,89 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: 'dashboard',
         pathMatch: 'full'
       },
       {
         path: 'dashboard',
-        loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent)
+        loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
       },
       {
         path: 'cargo-management',
-        loadComponent: () => import('./cargo-management/cargo-management.component').then(m => m.CargoManagementComponent)
+        loadComponent: () => import('./features/cargo-management/cargo-management.component').then(m => m.CargoManagementComponent)
       },
       {
         path: 'cargo-management/:id',
-        loadComponent: () => import('./cargo-management/cargo-detail.component').then(m => m.CargoDetailComponent)
+        loadComponent: () => import('./features/cargo-management/cargo-detail.component').then(m => m.CargoDetailComponent)
       },
       {
         
         path: 'warehouse-operations',
-        loadComponent: () => import('./warehouse-operations/warehouse-operations.component').then(m => m.WarehouseOperationsComponent)
+        loadComponent: () => import('./features/warehouse-operations/warehouse-operations.component').then(m => m.WarehouseOperationsComponent)
       },
       {
         path: 'storage-requests',
-        loadComponent: () => import('./storage-requests/storage-requests.component').then(m => m.StorageRequestsComponent)
+        loadComponent: () => import('./features/storage-requests/storage-requests.component').then(m => m.StorageRequestsComponent)
       },
       {
         path: 'storage-requests/:id',
-        loadComponent: () => import('./storage-requests/storage-request-detail.component').then(m => m.StorageRequestDetailComponent)
+        loadComponent: () => import('./features/storage-requests/storage-request-detail.component').then(m => m.StorageRequestDetailComponent)
       },
       {
         path: 'reservations',
-        loadComponent: () => import('./reservations/reservations.component').then(m => m.ReservationsComponent)
+        loadComponent: () => import('./features/reservations/reservations.component').then(m => m.ReservationsComponent)
       },
       {
         path: 'warehouse-map',
-        loadComponent: () => import('./warehouse-map/warehouse-map.component').then(m => m.WarehouseMapComponent)
+        loadComponent: () => import('./features/warehouse-map/warehouse-map.component').then(m => m.WarehouseMapComponent)
       },
       {
         path: 'dock-management',
-        loadComponent: () => import('./dock-management/dock-management.component').then(m => m.DockManagementComponent)
+        loadComponent: () => import('./features/dock-management/dock-management.component').then(m => m.DockManagementComponent)
       },
       {
         path: 'dock-management/:id',
-        loadComponent: () => import('./dock-management/dock-detail.component').then(m => m.DockDetailComponent)
+        loadComponent: () => import('./features/dock-management/dock-detail.component').then(m => m.DockDetailComponent)
       },
       {
         path: 'billing-payments',
-        loadComponent: () => import('./billing-payments/billing-payments.component').then(m => m.BillingPaymentsComponent)
+        loadComponent: () => import('./features/billing-payments/billing-payments.component').then(m => m.BillingPaymentsComponent)
       },
       {
         path: 'billing-payments/invoice/:id',
-        loadComponent: () => import('./billing-payments/invoice-detail.component').then(m => m.InvoiceDetailComponent)
+        loadComponent: () => import('./features/billing-payments/invoice-detail.component').then(m => m.InvoiceDetailComponent)
       },
       {
-        path: 'customers',
-        loadComponent: () => import('./customers/customers.component').then(m => m.CustomersComponent)
+        path: 'contractors',
+        loadComponent: () => import('./features/contractors/contractor-listing/contractors.component').then(m => m.ContractorsComponent)
       },
       {
-        path: 'customers/:id',
-        loadComponent: () => import('./customers/customer-detail.component').then(m => m.CustomerDetailComponent)
+        path: 'contractors/:id',
+        loadComponent: () => import('./features/contractors/contractor-details/contractor-details.component').then(m => m.ContractorDetailComponent)
       },
       {
         path: 'employees',
-        loadComponent: () => import('./employees/employees.component').then(m => m.EmployeesComponent),
+        loadComponent: () => import('./features/employees/employees.component').then(m => m.EmployeesComponent),
         data: { role: 'Warehouse Manager' }
       },
       {
         path: 'employees/:id',
-        loadComponent: () => import('./employees/employee-detail.component').then(m => m.EmployeeDetailComponent),
+        loadComponent: () => import('./features/employees/employee-detail.component').then(m => m.EmployeeDetailComponent),
         data: { role: 'Warehouse Manager' }
       },
       
       {
         path: 'role-management',
-        loadComponent: () => import('./role-management/role-management.component').then(m => m.RoleManagementComponent),
+        loadComponent: () => import('./features/role-management/role-management.component').then(m => m.RoleManagementComponent),
         data: { role: 'Warehouse Manager' }
       },
       {
         path: 'settings',
-        loadComponent: () => import('./settings/settings.component').then(m => m.SettingsComponent)
+        loadComponent: () => import('./features/settings/settings.component').then(m => m.SettingsComponent)
       },
       {
         path: 'reports',
-        loadComponent: () => import('./reports/reports.component').then(m => m.ReportsComponent),
+        loadComponent: () => import('./features/reports/reports.component').then(m => m.ReportsComponent),
         data: { role: 'Warehouse Manager' }
       },
       // Legacy route redirect
@@ -113,7 +113,12 @@ export const routes: Routes = [
     ]
   },
   {
+    path: '',
+    redirectTo: 'auth/login',
+    pathMatch: 'full'
+  },
+  {
     path: '**',
-    redirectTo: '/dashboard'
+    redirectTo: 'dashboard'
   }
 ];

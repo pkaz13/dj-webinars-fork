@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@nuxtjs/storybook'
 import SuccessModal from './SuccessModal.vue'
 
 const meta = {
-  title: 'UI Library/Modals/SuccessModal',
+  title: 'UI Library/SuccessModal',
   component: SuccessModal,
   tags: ['autodocs'],
   parameters: {

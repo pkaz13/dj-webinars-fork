@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Blocked - Developer Distractor Destroyer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .header-icon {
+            height: 80px;
+            width: 80px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin: 0 0 20px 0;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: 24px;
+            margin: 0 0 30px 0;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .message {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .tips {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .tips h3 {
+            margin: 0 0 15px 0;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .tip-item {
+            margin: 12px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tip-item:last-child {
+            border-bottom: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .icon {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div id="blockedContainer" class="container">
+        <img src="icon.png" alt="icon" class="header-icon" />
+        <h1>Site Blocked</h1>
+        <h2>Stay Focused & Productive</h2>
+
+        <div class="message">
+            This website has been blocked to help you maintain focus and productivity. 
+            Use this time to work on your important tasks!
+        </div>
+
+        <div class="quote">
+            "The key is not to prioritize what's on your schedule, but to schedule your priorities."
+        </div>
+
+        <div class="tips">
+            <h3>💡 Productivity Tips</h3>
+            <div class="tip-item">
+                <strong>🎯 Focus on one task at a time</strong> - Multitasking reduces productivity by up to 40%
+            </div>
+            <div class="tip-item">
+                <strong>⏰ Use the Pomodoro Technique</strong> - Work for 25 minutes, then take a 5-minute break
+            </div>
+            <div class="tip-item">
+                <strong>📝 Make a to-do list</strong> - Write down 3 most important tasks for today
+            </div>
+            <div class="tip-item">
+                <strong>🧘 Take deep breaths</strong> - A few minutes of mindfulness can boost your focus
+            </div>
+            <div class="tip-item">
+                <strong>🚶 Take a short walk</strong> - Physical activity can improve mental clarity
+            </div>
+        </div>
+    </div>
+
+    <script src="blocked.js"></script>
+</body>
+</html>

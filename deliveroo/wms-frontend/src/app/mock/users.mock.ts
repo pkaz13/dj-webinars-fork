@@ -1,4 +1,4 @@
-import { UserProfile } from '../user-management/user.model';
+import { UserProfile } from '../features/user-management/user.model';
 
 export const MOCK_USERS: { [key: string]: UserProfile } = {
   'manager': {

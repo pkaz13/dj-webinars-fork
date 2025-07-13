@@ -1,4 +1,4 @@
-import { AuditLog, Employee, Role } from "../employees/employees.interfaces";
+import { AuditLog, Employee, Role } from "../features/employees/employees.interfaces";
 
 export const MOCK_EMPLOYEES: Employee[] = [
     {

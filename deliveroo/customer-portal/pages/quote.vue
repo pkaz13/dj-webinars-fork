@@ -225,9 +225,11 @@
                 >
                   <option value="">Select storage type</option>
                   <option value="ambient">Ambient</option>
-                  <option value="refrigerated">Refrigerated</option>
+                  <option value="perishable">Perishable</option>
                   <option value="frozen">Frozen</option>
+                  <option value="dry">Dry</option>
                   <option value="hazardous">Hazardous</option>
+                  <option value="secure">Secure</option>
                 </select>
               </div>
               

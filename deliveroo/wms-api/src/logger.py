@@ -43,7 +43,7 @@ def setup_logger():
     logger.setLevel(logging.DEBUG)
 
     # File handler
-    file_handler = logging.FileHandler("availability-api.log")
+    file_handler = logging.FileHandler(os.environ.get("SERVICE_NAME") + ".log")
     file_formatter = JsonFormatter()
     file_handler.setFormatter(file_formatter)
     file_handler.addFilter(RequestContextFilter())

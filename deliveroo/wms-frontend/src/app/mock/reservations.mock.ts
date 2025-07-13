@@ -1,10 +1,10 @@
-import { Reservation } from "../reservations/reservations.model";
+import { Reservation } from "../features/reservations/reservations.model";
 
 export const MOCK_RESERVATIONS: Reservation[] = [
     {
         id: 1,
-        customerId: 1,
-        customerName: 'ABC Corp',
+        contractorId: '6',
+        contractorName: 'Ward, Hall and Farley',
         storageRequestId: 1,
         location: {
             zone: 'Zone A',
@@ -30,8 +30,8 @@ export const MOCK_RESERVATIONS: Reservation[] = [
     },
     {
         id: 2,
-        customerId: 2,
-        customerName: 'FreshFood Inc',
+        contractorId: '7',
+        contractorName: 'Hart and Sons',
         storageRequestId: 2,
         location: {
             zone: 'Zone B',
@@ -57,8 +57,8 @@ export const MOCK_RESERVATIONS: Reservation[] = [
     },
     {
         id: 3,
-        customerId: 3,
-        customerName: 'Global Logistics',
+        contractorId: '8',
+        contractorName: 'Global Logistics',
         storageRequestId: 3,
         location: {
             zone: 'Zone A',
@@ -83,8 +83,8 @@ export const MOCK_RESERVATIONS: Reservation[] = [
     },
     {
         id: 4,
-        customerId: 4,
-        customerName: 'Tech Solutions',
+        contractorId: '9',
+        contractorName: 'Tech Solutions',
         storageRequestId: 4,
         location: {
             zone: 'Zone C',

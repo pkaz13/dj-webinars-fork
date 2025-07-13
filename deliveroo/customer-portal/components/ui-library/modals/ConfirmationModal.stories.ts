@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@nuxtjs/storybook'
 import ConfirmationModal from './ConfirmationModal.vue'
 
 const meta = {
-  title: 'UI Library/Modals/ConfirmationModal',
+  title: 'UI Library/ConfirmationModal',
   component: ConfirmationModal,
   tags: ['autodocs'],
   parameters: {

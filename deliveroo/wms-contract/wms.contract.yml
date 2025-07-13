@@ -1,0 +1,381 @@
+openapi: 3.0.0
+info:
+  title: WMS API (Warehouse Management System)
+  version: 1.0.0
+  description: API for managing contractors and storage requests
+servers:
+  - url: http://localhost:3001
+    description: Local development server
+  - url: http://localhost:8080/wms/api/
+    description: Local development server
+  - url: https://wms.deliveroo.com
+    description: Production server
+
+paths:
+  /contractors:
+    get:
+      summary: List contractors
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractorsSummaryCollection'
+
+  /contractors/{id}:
+    get:
+      summary: Get contractor details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractorDetails'
+    patch:
+      summary: Update contractor status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractorStatusUpdate'
+      responses:
+        '200':
+          description: Status updated
+
+  /storage-requests:
+    get:
+      summary: List storage requests
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StorageRequestSummary'
+    post:
+      summary: Create storage request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StorageRequestCreate'
+      responses:
+        '201':
+          description: Request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageRequestDetails'
+
+  /storage-requests/{id}:
+    get:
+      summary: Get storage request details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageRequestDetails'
+    patch:
+      summary: Update storage request status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StorageRequestStatusUpdate'
+      responses:
+        '200':
+          description: Status updated
+
+components:
+  schemas:
+    # Enums
+    ContractorStatus:
+      type: string
+      enum: [ACTIVE, INACTIVE]
+    
+    StorageRequestStatus:
+      type: string
+      enum: [PENDING, ACCEPTED, REJECTED]
+    
+    SpecialRequirement:
+      type: string
+      enum: [REQUIRED_REFRIGERATION, REQUIRED_FREEZING, CONTAINS_HAZMAT, CONTAINS_PERISHABLES]
+
+    Contact:
+      type: object
+      properties:
+        type:
+          type: string
+          example: EMAIL
+        details:
+          type: string
+          example: "info@daugherty-ochoa.com"
+
+    EmployeeSummary:
+      type: object
+      properties:
+        employee_id:
+          type: string
+        employee_name:
+          type: string
+        employee_data:
+          type: object
+          properties:
+            type:
+              type: string
+            job_title:
+              type: string
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+
+    AddressDetails:
+      type: object
+      properties:
+        address_id:
+          type: string
+          format: uuid
+        street_address:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        postal_code:
+          type: string
+        address_type:
+          type: string
+
+    # Contractor Schemas
+    ContractorsSummaryCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/ContractorSummary'
+
+    ContractorSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          $ref: '#/components/schemas/ContractorStatus'
+        tax_id_number:
+          type: string
+          nullable: true
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+      required: [id, name, status, contacts]
+    
+    ContractorDetails:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          $ref: '#/components/schemas/ContractorStatus'
+        tax_id_number:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressDetails'
+        employees:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeSummary'
+      required: [id, name, status, contacts, addresses, employees]
+    
+    TaxInformation:
+      type: object
+      properties:
+        taxNumber:
+          type: string
+    
+    AccountDetails:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        notes:
+          type: string
+    
+    ContractorStatusUpdate:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ContractorStatus'
+      required: [status]
+
+    # Storage Request Schemas
+    StorageRequestSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        contractorId:
+          type: string
+        contractorName:
+          type: string
+        cargo:
+          type: object
+          properties:
+            name:
+              type: string
+        entryDate:
+          type: string
+          format: date
+        exitDate:
+          type: string
+          format: date
+        status:
+          $ref: '#/components/schemas/StorageRequestStatus'
+    
+    StorageRequestDetails:
+      type: object
+      properties:
+        id:
+          type: string
+        contractorInformation:
+          type: object
+          properties:
+            contractorId:
+              type: string
+            contractorName:
+              type: string
+            warehouse:
+              type: string
+        requestTimeline:
+          $ref: '#/components/schemas/RequestTimeline'
+        cargoDetails:
+          $ref: '#/components/schemas/CargoDetails'
+        specialRequirements:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecialRequirement'
+        specialHandlingInstructions:
+          type: string
+    
+    RequestTimeline:
+      type: object
+      properties:
+        requestedEntryDate:
+          type: string
+          format: date
+        requestedExitDate:
+          type: string
+          format: date
+        storageDuration:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+    
+    CargoDetails:
+      type: object
+      properties:
+        description:
+          type: string
+        estimatedValue:
+          type: number
+        weight:
+          type: number
+        volume:
+          type: number
+        currency:
+          type: string
+    
+    StorageRequestCreate:
+      type: object
+      properties:
+        contractorId:
+          type: string
+        contractorName:
+          type: string
+        warehouseId:
+          type: string
+        entryDate:
+          type: string
+          format: date
+        exitDate:
+          type: string
+          format: date
+        cargoDetails:
+          $ref: '#/components/schemas/CargoDetails'
+        specialRequirements:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecialRequirement'
+        specialHandlingInstructions:
+          type: string
+    
+    StorageRequestStatusUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [accepted, rejected]
+      required: [status]
+
+    # Warehouse Schema
+    Warehouse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string

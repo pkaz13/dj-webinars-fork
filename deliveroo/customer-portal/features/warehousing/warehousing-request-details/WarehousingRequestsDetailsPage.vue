@@ -296,7 +296,7 @@ import {
   ExclamationTriangleIcon
 } from '@heroicons/vue/24/outline'
 import { useWarehousingRequestDetails } from '~/features/warehousing/warehousing-request-details/warehousing-request-details-api'
-import { PDFGenerator } from '~/utils/pdfGenerator'
+import { PDFGenerator } from '~/lib/pdf/pdfGenerator'
 import type { WarehousingRequest } from '~/features/warehousing/warehousing-request-details/warehousing-request-details.model'
 import Timeline from '~/components/ui-library/timeline/Timeline.vue'
 

@@ -1,10 +1,10 @@
-import { StorageRequest } from '../storage-requests/storage-request.model';
+import { StorageRequest } from '../features/storage-requests/storage-request.model';
 
 export const MOCK_STORAGE_REQUESTS: StorageRequest[] = [
   {
     id: 1,
-    customerId: 1,
-    customerName: 'ABC Corp',
+    contractorId: '6',
+    contractorName: 'Ward, Hall and Farley',
     warehouseId: 1,
     requestedEntryDate: new Date('2025-01-15'),
     requestedExitDate: new Date('2025-02-15'),

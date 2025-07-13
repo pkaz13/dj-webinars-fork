@@ -14,21 +14,21 @@
       <template #company>
         <CompanyInformationTab
           :company-info="companyInfo"
-          @update-company-info="handleCompanyInfoUpdate"
+          @update="handleCompanyInfoUpdate"
         />
       </template>
 
       <template #contact>
         <ContactInformationTab
           :contact-info="contactInfo"
-          @update-contact-info="handleContactInfoUpdate"
+          @update="handleContactInfoUpdate"
         />
       </template>
 
       <template #notifications>
         <NotificationPreferencesTab
           :notification-preferences="notificationPreferences"
-          @update-notification-preferences="handleNotificationPreferencesUpdate"
+          @update="handleNotificationPreferencesUpdate"
         />
       </template>
 
@@ -82,52 +82,33 @@ const notificationPreferences = ref<NotificationPreferences>({ ...mockNotificati
 
 // Event handlers
 const handleTabChange = (tabId: string) => {
-  console.log('Tab changed to:', tabId)
+  // Update the active tab
+  activeTab.value = tabId
 }
 
 const handleCompanyInfoUpdate = async (data: CompanyInfo) => {
-  try {
-    const updatedData = await updateCompanyInfo(data)
-    companyInfo.value = updatedData
-  } catch (error) {
-    console.error('Failed to update company information:', error)
-  }
+  // Update local state with the updated data
+  companyInfo.value = data
 }
 
 const handleContactInfoUpdate = async (data: ContactInfo) => {
-  try {
-    const updatedData = await updateContactInfo(data)
-    contactInfo.value = updatedData
-  } catch (error) {
-    console.error('Failed to update contact information:', error)
-  }
+  // Update local state with the updated data
+  contactInfo.value = data
 }
 
 const handleNotificationPreferencesUpdate = async (data: NotificationPreferences) => {
-  try {
-    const updatedData = await updateNotificationPreferences(data)
-    notificationPreferences.value = updatedData
-  } catch (error) {
-    console.error('Failed to update notification preferences:', error)
-  }
+  // Update local state with the updated data
+  notificationPreferences.value = data
 }
 
 const handlePasswordChange = async (data: PasswordChangeData) => {
-  try {
-    await changePassword(data)
-    console.log('Password changed successfully')
-  } catch (error) {
-    console.error('Failed to change password:', error)
-  }
+  // Password change is handled in the SecuritySettingsTab component
+  console.log('Password changed successfully')
 }
 
 const handle2FAEnable = async () => {
-  try {
-    await enable2FA()
-    console.log('2FA enabled successfully')
-  } catch (error) {
-    console.error('Failed to enable 2FA:', error)
-  }
+  // 2FA enabling is handled in the SecuritySettingsTab component
+  console.log('2FA enabled successfully')
 }
 
 // Initialize data on component mount

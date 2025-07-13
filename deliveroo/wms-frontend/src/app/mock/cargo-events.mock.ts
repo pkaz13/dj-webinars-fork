@@ -1,4 +1,4 @@
-import { CargoEvent } from '../cargo-management/cargo.model';
+import { CargoEvent } from '../features/cargo-management/cargo.model';
 
 export const MOCK_CARGO_EVENTS: CargoEvent[] = [
   {

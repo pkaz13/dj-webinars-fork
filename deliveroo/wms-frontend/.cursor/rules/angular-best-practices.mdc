@@ -16,3 +16,5 @@ See docs: https://angular.dev/guide/components/inputs
 
 4. When creating Angular templates, please use the new Angular control flow (such as `@if(condition){ block }`, `@for (item of items; track item.id) { block }`) instead of the old directive such as `*ngIf`, `*ngFor`, and so on.
 See docs: https://angular.dev/guide/templates/control-flow
+
+5. Never use arrow functions inside Angular templates as the framework cannot support these. You need to work on data structures on the component class side.

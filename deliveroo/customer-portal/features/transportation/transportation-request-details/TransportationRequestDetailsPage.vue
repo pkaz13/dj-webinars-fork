@@ -250,7 +250,7 @@ import {
   ExclamationTriangleIcon
 } from '@heroicons/vue/24/outline'
 import { useTransportationRequestDetails } from '~/features/transportation/transportation-request-details/transportation-request-details-api'
-import { PDFGenerator } from '~/utils/pdfGenerator'
+import { PDFGenerator } from '~/lib/pdf/pdfGenerator'
 import type { TransportationRequest } from '~/features/transportation/transportation-request-details/transportation-request-details.model'
 import Timeline from '~/components/ui-library/timeline/Timeline.vue'
 

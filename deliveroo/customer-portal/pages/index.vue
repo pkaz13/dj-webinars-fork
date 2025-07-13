@@ -1,7 +1,8 @@
 <template>
   <div>
+    <LogisticsSection />
     <!-- Hero Section -->
-    <section class="relative overflow-hidden">
+    <section class="relative overflow-hidden" v-if="false">
       <!-- Background Image -->
       <div class="absolute inset-0">
         <img
@@ -17,11 +18,11 @@
       
       <div class="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
         <div class="text-center">
-          <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl drop-shadow-lg">
+          <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl drop-shadow-lg animate-slide-up animation-delay-300">
             <span class="block">Seamless Logistics</span>
-            <span class="block text-accent-300">Across Europe</span>
+            <span class="block text-accent-300 animation-delay-500 animate-slide-up">Across Europe</span>
           </h1>
-          <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-100 drop-shadow-md">
+          <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-100 drop-shadow-md animate-fade-in animation-delay-700">
             Connecting East and West with reliable road transportation and secure warehousing. 
             From Poland to every corner of Europe, we deliver excellence.
           </p>
@@ -42,15 +43,29 @@
         </div>
       </div>
       
-      <!-- Floating elements with enhanced styling -->
-      <div class="absolute top-1/4 left-10 animate-bounce">
-        <div class="glass-effect rounded-lg p-4 shadow-lg">
-          <TruckIcon class="h-8 w-8 text-white drop-shadow-sm" />
+      <!-- Confetti layer -->
+      <div ref="confettiContainer" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+
+      <!-- Floating & clickable truck icon -->
+      <div
+        ref="truckElement"
+        class="absolute top-1/4 left-10 cursor-pointer floating-around"
+        @click="triggerConfetti($event, truckColors)"
+      >
+        <div class="glass-effect rounded-lg p-4 shadow-lg hover:scale-110 transition-transform duration-300">
+          <TruckIcon class="h-8 w-8 text-white drop-shadow-sm animate-wiggle" />
         </div>
       </div>
-      <div class="absolute bottom-1/4 right-10 animate-bounce" style="animation-delay: 1s;">
-        <div class="glass-effect rounded-lg p-4 shadow-lg">
-          <BuildingStorefrontIcon class="h-8 w-8 text-white drop-shadow-sm" />
+
+      <!-- Floating & clickable warehouse icon -->
+      <div
+        ref="warehouseElement"
+        class="absolute bottom-1/4 right-10 cursor-pointer floating-around-reverse"
+        @click="triggerConfetti($event, warehouseColors)"
+        style="animation-delay:1s;"
+      >
+        <div class="glass-effect rounded-lg p-4 shadow-lg hover:scale-110 transition-transform duration-300">
+          <BuildingStorefrontIcon class="h-8 w-8 text-white drop-shadow-sm animate-wiggle-reverse" />
         </div>
       </div>
     </section>
@@ -97,7 +112,7 @@
       </div>
     </section>
 
-    <!-- Why Choose Us -->
+    <!-- Why Choose Us with Video -->
     <section id="about" class="py-24 bg-white dark:bg-gray-900">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="text-center">
@@ -110,35 +125,17 @@
         </div>
         
         <div class="mt-20 grid grid-cols-1 gap-8 lg:grid-cols-2">
-          <div class="space-y-8">
-            <div
-              v-for="feature in features"
-              :key="feature.name"
-              class="flex items-start space-x-4"
-            >
-              <div class="flex-shrink-0">
-                <div class="flex items-center justify-center w-12 h-12 bg-success-100 dark:bg-success-900 rounded-lg">
-                  <component :is="getIconComponent(feature.icon)" class="w-6 h-6 text-success-600 dark:text-success-400" />
-                </div>
-              </div>
-              <div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                  {{ feature.name }}
-                </h3>
-                <p class="mt-2 text-gray-600 dark:text-gray-300">
-                  {{ feature.description }}
-                </p>
-              </div>
-            </div>
-          </div>
+          <!-- Rotating Features -->
+          <Rotator :items="features" :items-to-show="3" />
           
           <div class="relative">
-            <img
-              src="https://images.pexels.com/photos/906494/pexels-photo-906494.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="Modern logistics facility"
-              class="rounded-lg shadow-xl"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg"></div>
+            <video 
+              class="rounded-lg shadow-xl w-full h-auto" 
+              controls
+            >
+              <source src="/deliveroo-promo-drivers.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
       </div>
@@ -186,98 +183,7 @@
     </section>
 
     <!-- Success Stories -->
-    <section id="success-stories" class="py-24 bg-white dark:bg-gray-900">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="text-center">
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-            Success Stories
-          </h2>
-          <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">
-            Real results from businesses that trust us with their logistics
-          </p>
-        </div>
-        
-        <div class="mt-20 grid grid-cols-1 gap-8 lg:grid-cols-3">
-          <div
-            v-for="story in successStories"
-            :key="story.id"
-            class="card p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-          >
-            <div class="flex items-center mb-6">
-              <img
-                :src="story.logo"
-                :alt="story.company"
-                class="h-12 w-12 rounded-lg object-cover mr-4"
-              />
-              <div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                  {{ story.company }}
-                </h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">
-                  {{ story.industry }}
-                </p>
-              </div>
-            </div>
-            
-            <blockquote class="text-gray-600 dark:text-gray-300 mb-6 italic">
-              "{{ story.testimonial }}"
-            </blockquote>
-            
-            <div class="grid grid-cols-2 gap-4 mb-6">
-              <div class="text-center">
-                <div class="text-2xl font-bold text-success-600 dark:text-success-400">
-                  {{ story.metrics.improvement }}
-                </div>
-                <div class="text-sm text-gray-500 dark:text-gray-400">
-                  Cost Reduction
-                </div>
-              </div>
-              <div class="text-center">
-                <div class="text-2xl font-bold text-success-600 dark:text-success-400">
-                  {{ story.metrics.delivery }}
-                </div>
-                <div class="text-sm text-gray-500 dark:text-gray-400">
-                  On-Time Delivery
-                </div>
-              </div>
-            </div>
-            
-            <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <img
-                  :src="story.contact.avatar"
-                  :alt="story.contact.name"
-                  class="h-8 w-8 rounded-full mr-3"
-                />
-                <div>
-                  <div class="text-sm font-medium text-gray-900 dark:text-white">
-                    {{ story.contact.name }}
-                  </div>
-                  <div class="text-xs text-gray-500 dark:text-gray-400">
-                    {{ story.contact.position }}
-                  </div>
-                </div>
-              </div>
-              <NuxtLink
-                :to="story.caseStudyLink"
-                class="text-success-600 hover:text-success-500 dark:text-success-400 text-sm font-medium"
-              >
-                Read Case Study →
-              </NuxtLink>
-            </div>
-          </div>
-        </div>
-        
-        <div class="mt-12 text-center">
-          <NuxtLink
-            to="/case-studies"
-            class="inline-flex items-center px-6 py-3 border border-success-600 text-base font-medium rounded-md text-success-600 bg-white hover:bg-success-50 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors"
-          >
-            View All Case Studies
-          </NuxtLink>
-        </div>
-      </div>
-    </section>
+    <SuccessStories />
 
     <!-- Statistics -->
     <section class="relative py-24 overflow-hidden" ref="statsSection">
@@ -314,6 +220,17 @@
               {{ stat.name }}
             </div>
           </div>
+        </div>
+
+        <!-- Video Player -->
+        <div class="mt-12 max-w-3xl mx-auto">
+          <video 
+            class="rounded-lg shadow-xl w-full h-auto" 
+            controls
+          >
+            <source src="/deliveroo-promo-fresh-food.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
     </section>
@@ -438,111 +355,7 @@
           </div>
           
           <!-- Contact Form -->
-          <div class="card p-8">
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">
-              Send us a Message
-            </h3>
-            
-            <form @submit.prevent="handleContactSubmit" class="space-y-6">
-              <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    First Name *
-                  </label>
-                  <input
-                    v-model="contactForm.firstName"
-                    type="text"
-                    required
-                    class="input"
-                    placeholder="Enter your first name"
-                  />
-                </div>
-                
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Last Name *
-                  </label>
-                  <input
-                    v-model="contactForm.lastName"
-                    type="text"
-                    required
-                    class="input"
-                    placeholder="Enter your last name"
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Email Address *
-                </label>
-                <input
-                  v-model="contactForm.email"
-                  type="email"
-                  required
-                  class="input"
-                  placeholder="Enter your email"
-                />
-              </div>
-              
-              <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Company Name
-                </label>
-                <input
-                  v-model="contactForm.company"
-                  type="text"
-                  class="input"
-                  placeholder="Enter your company name"
-                />
-              </div>
-              
-              <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Subject *
-                </label>
-                <select
-                  v-model="contactForm.subject"
-                  required
-                  class="input"
-                >
-                  <option value="">Select a subject</option>
-                  <option value="quote">Request a Quote</option>
-                  <option value="partnership">Partnership Opportunities</option>
-                  <option value="support">Customer Support</option>
-                  <option value="general">General Inquiry</option>
-                </select>
-              </div>
-              
-              <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Message *
-                </label>
-                <textarea
-                  v-model="contactForm.message"
-                  rows="4"
-                  required
-                  class="input"
-                  placeholder="Tell us about your logistics needs..."
-                ></textarea>
-              </div>
-              
-              <button
-                type="submit"
-                :disabled="contactLoading"
-                class="w-full btn-primary"
-              >
-                <span v-if="!contactLoading">Send Message</span>
-                <span v-else class="flex items-center justify-center">
-                  <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Sending...
-                </span>
-              </button>
-            </form>
-          </div>
+          <ContactForm />
         </div>
       </div>
     </section>
@@ -564,19 +377,16 @@ import {
   ArrowRightIcon
 } from '@heroicons/vue/24/outline'
 
-const contactLoading = ref(false)
-const statsSection = ref(null)
-const animatedStats = ref({})
-const hasAnimated = ref(false)
+import Rotator from '~/components/landing/Rotator.vue'
+import SuccessStories from '~/components/landing/SuccessStories.vue'
+import ContactForm from '~/components/landing/ContactForm.vue'
+import LogisticsSection from '~/components/landing/LogisticsSection.vue'
 
-const contactForm = reactive({
-  firstName: '',
-  lastName: '',
-  email: '',
-  company: '',
-  subject: '',
-  message: ''
-})
+import { ref, onMounted, nextTick } from 'vue'
+
+const statsSection = ref(null)
+const animatedStats = ref<Record<string, string>>({})
+const hasAnimated = ref(false)
 
 // Inlined mock data
 const services = [
@@ -646,60 +456,21 @@ const features = [
     name: 'Trusted Partner',
     description: 'Years of experience with industry-leading safety standards and compliance.',
     icon: 'ShieldCheckIcon'
-  }
-]
-
-const successStories = [
-  {
-    id: 1,
-    company: 'TechCorp Manufacturing',
-    industry: 'Electronics Manufacturing',
-    logo: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-    testimonial: 'Deliveroo transformed our supply chain efficiency. Their real-time tracking and reliable delivery schedules helped us reduce inventory costs by 30% while improving customer satisfaction.',
-    metrics: {
-      improvement: '30%',
-      delivery: '99.2%'
-    },
-    contact: {
-      name: 'Anna Kowalski',
-      position: 'Supply Chain Director',
-      avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop'
-    },
-    caseStudyLink: '/case-studies/techcorp'
   },
   {
-    id: 2,
-    company: 'AutoParts Europe',
-    industry: 'Automotive Parts',
-    logo: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-    testimonial: 'The cross-border logistics expertise of Deliveroo enabled us to expand into 5 new European markets. Their customs clearance service is exceptional.',
-    metrics: {
-      improvement: '25%',
-      delivery: '98.8%'
-    },
-    contact: {
-      name: 'Marcus Weber',
-      position: 'Logistics Manager',
-      avatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop'
-    },
-    caseStudyLink: '/case-studies/autoparts'
+    name: 'Flexible B2B Service',
+    description: 'Direct deliveries to any location in Europe, including remote areas, thanks to our extensive road network and adaptable fleet.',
+    icon: 'CheckIcon'
   },
   {
-    id: 3,
-    company: 'FreshFood Distribution',
-    industry: 'Food & Beverage',
-    logo: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-    testimonial: 'Temperature-controlled transportation and warehousing solutions from Deliveroo helped us maintain product quality while expanding our distribution network across Central Europe.',
-    metrics: {
-      improvement: '40%',
-      delivery: '99.5%'
-    },
-    contact: {
-      name: 'Sofia Novak',
-      position: 'Operations Director',
-      avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop'
-    },
-    caseStudyLink: '/case-studies/freshfood'
+    name: 'Versatile Cargo Solutions',
+    description: 'Expertise in handling all types of goods—from perishable and hazardous materials to oversized and high-value shipments—with tailored transport options.',
+    icon: 'CheckIcon'
+  },
+  {
+    name: 'Cost-Efficient Logistics',
+    description: 'Competitive pricing and optimised route planning ensure your shipments are delivered efficiently, saving you time and money.',
+    icon: 'CheckIcon'
   }
 ]
 
@@ -710,6 +481,15 @@ const stats = [
   { name: 'Warehouse Capacity', value: 50000, suffix: ' m²' }
 ]
 
+// Color arrays placeholders for legacy template refs
+const truckColors: string[] = []
+const warehouseColors: string[] = []
+
+// Refs for interactive icons & confetti layer
+const truckElement = ref<HTMLElement | null>(null)
+const warehouseElement = ref<HTMLElement | null>(null)
+const confettiContainer = ref<HTMLElement | null>(null)
+
 // Helper function to get icon component from string name
 const getIconComponent = (iconName: string) => {
   const iconMap = {
@@ -718,7 +498,8 @@ const getIconComponent = (iconName: string) => {
     'ShieldCheckIcon': ShieldCheckIcon,
     'CpuChipIcon': CpuChipIcon,
     'GlobeEuropeAfricaIcon': GlobeEuropeAfricaIcon,
-    'ClockIcon': ClockIcon
+    'ClockIcon': ClockIcon,
+    'CheckIcon': CheckIcon
   }
   return iconMap[iconName as keyof typeof iconMap] || TruckIcon
 }
@@ -772,41 +553,68 @@ const observeStatsSection = () => {
   observer.observe(statsSection.value)
 }
 
-const handleContactSubmit = async () => {
-  contactLoading.value = true
-  
-  try {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    
-    // Reset form
-    Object.keys(contactForm).forEach(key => {
-      contactForm[key] = ''
+/* ----------------------  SCROLL-REVEAL SETUP ---------------------- */
+const setupScrollReveal = () => {
+  if (!process.client) return
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed')
+        observer.unobserve(entry.target)
+      }
     })
-    
-    // Show success message (you could add a toast notification here)
-    alert('Thank you for your message! We will get back to you within 2 business hours.')
-  } catch (error) {
-    console.error('Contact form submission failed:', error)
-    alert('There was an error sending your message. Please try again or contact us directly.')
-  } finally {
-    contactLoading.value = false
-  }
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
+
+  document.querySelectorAll('.scroll-reveal').forEach((el) => observer.observe(el))
 }
 
 onMounted(() => {
-  // Initialize stats with 0
-  stats.forEach(stat => {
-    animatedStats.value[stat.name] = '0'
-  })
-  
-  // Set up intersection observer
+  observeStatsSection()
   nextTick(() => {
-    observeStatsSection()
+    setupScrollReveal()
   })
 })
 
 definePageMeta({
   layout: 'default'
 })
+
+// Removed hero confetti logic – keep a stub for template refs
+const triggerConfetti = (_e?: any, _colors?: string[]) => {}
 </script>
+
+<style scoped>
+/* ------------ extra animations & utilities inspired by ALT.vue ------------ */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up { animation: slideUp 0.8s forwards; }
+.animate-fade-in { animation: fadeIn 0.8s forwards; }
+
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+/* Animation delay helpers */
+.animation-delay-300 { animation-delay: .3s; }
+.animation-delay-500 { animation-delay: .5s; }
+.animation-delay-700 { animation-delay: .7s; }
+
+/* Floating wiggle */
+@keyframes wiggle { 0%,100%{transform:rotate(-3deg);} 50%{transform:rotate(3deg);} }
+.animate-wiggle { animation: wiggle 1.5s ease-in-out infinite; }
+.animate-wiggle-reverse { animation: wiggle 1.5s ease-in-out reverse infinite; }
+
+/* Simple floating around keyframes */
+@keyframes floatY { 0%,100%{transform: translateY(-6px);} 50%{transform: translateY(6px);} }
+.floating-around { animation: floatY 4s ease-in-out infinite; }
+.floating-around-reverse { animation: floatY 4s ease-in-out reverse infinite; }
+
+/* Scroll reveal base */
+.scroll-reveal { opacity:0; transform: translateY(40px); transition: opacity .6s ease, transform .6s ease; }
+.scroll-reveal.revealed { opacity:1; transform:none; }
+
+/* Confetti piece */
+.confetti-piece { will-change: transform, opacity; }
+</style>

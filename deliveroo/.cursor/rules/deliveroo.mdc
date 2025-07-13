@@ -1,0 +1,31 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+Any time when company specific information might be required, then remember that this document includes what should be put in legal documents, company name, addresses, and so on and so forth.
+
+```markdown
+# Company Legal Contact Information
+
+**Company Name:** Deliveroo Polska Sp. z o.o.  
+**Address:** ul. Przykładowa 12, 02-123 Warszawa, Polska  
+**Phone:** +48 22 123 45 67  
+**Email (Legal):** legal@deliveroo.pl
+**Email (Privacy):** privacy@deliveroo.pl  
+
+## Data Protection Officer (DPO)
+
+**Name:** Anna Nowak  
+**Email:** dpo@deliveroo.com  
+**Phone:** +48 22 765 43 21  
+**Address:** ul. Przykładowa 12, 02-123 Warszawa, Polska  
+
+## Jurisdiction
+
+All legal matters and documents are governed by the laws of the Republic of Poland.
+
+---
+
+*This information is for legal and compliance documentation purposes for Deliveroo Polska Sp. z o.o., based in Warsaw, Poland.*
+```

@@ -1,4 +1,4 @@
-import { InvoiceItem } from '../billing-payments/billing.model';
+import { InvoiceItem } from '../features/billing-payments/billing.model';
 
 export const MOCK_INVOICE_ITEMS: InvoiceItem[] = [
   {

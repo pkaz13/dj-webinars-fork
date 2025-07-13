@@ -1,4 +1,4 @@
-import { Dock } from '../dock-management/dock.model';
+import { Dock } from '../features/dock-management/dock.model';
 
 export const MOCK_DOCKS: Dock[] = [
   {

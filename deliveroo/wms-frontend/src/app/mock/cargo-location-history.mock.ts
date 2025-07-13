@@ -1,4 +1,4 @@
-import { CargoLocationHistory } from '../cargo-management/cargo.model';
+import { CargoLocationHistory } from '../features/cargo-management/cargo.model';
 
 export const MOCK_CARGO_LOCATION_HISTORY: CargoLocationHistory[] = [
   {

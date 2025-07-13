@@ -1,4 +1,4 @@
-import { BillingOverview, Invoice } from "../billing-payments/billing.model";
+import { BillingOverview, Invoice } from "../features/billing-payments/billing.model";
 
 export const MOCK_BILLING_OVERVIEW: BillingOverview = {
     totalRevenue: 1250000,
@@ -14,8 +14,8 @@ export const MOCK_INVOICES: Invoice[] = [
     {
       id: 1,
       invoiceNumber: 'INV-2025-001',
-      customerId: 1,
-      customerName: 'ABC Corp',
+      contractorId: '6',
+      contractorName: 'Ward, Hall and Farley',
       issueDate: new Date('2025-01-01'),
       dueDate: new Date('2025-01-31'),
       amount: 15000,
@@ -27,8 +27,8 @@ export const MOCK_INVOICES: Invoice[] = [
     {
       id: 2,
       invoiceNumber: 'INV-2025-002',
-      customerId: 2,
-      customerName: 'FreshFood Inc',
+      contractorId: '7',
+      contractorName: 'Hart and Sons',
       issueDate: new Date('2025-01-05'),
       dueDate: new Date('2025-02-04'),
       amount: 8500,
@@ -40,8 +40,8 @@ export const MOCK_INVOICES: Invoice[] = [
     {
       id: 3,
       invoiceNumber: 'INV-2025-003',
-      customerId: 3,
-      customerName: 'Global Logistics',
+      contractorId: '8',
+      contractorName: 'Global Logistics',
       issueDate: new Date('2024-12-15'),
       dueDate: new Date('2025-01-14'),
       amount: 12000,
@@ -53,8 +53,8 @@ export const MOCK_INVOICES: Invoice[] = [
     {
       id: 4,
       invoiceNumber: 'INV-2025-004',
-      customerId: 4,
-      customerName: 'Tech Solutions',
+      contractorId: '9',
+      contractorName: 'Tech Solutions',
       issueDate: new Date('2025-01-10'),
       dueDate: new Date('2025-02-09'),
       amount: 6750,

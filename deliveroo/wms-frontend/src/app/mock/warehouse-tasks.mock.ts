@@ -1,4 +1,4 @@
-import { Task } from "../warehouse-operations/warehouse-operations.model";
+import { Task } from "../features/warehouse-operations/warehouse-operations.model";
 
 export const MOCK_WAREHOUSE_TASKS: Task[] = [
     {

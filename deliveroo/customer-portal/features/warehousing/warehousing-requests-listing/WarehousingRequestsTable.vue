@@ -41,38 +41,17 @@
     
     <!-- Status badge -->
     <template #cell-status="{ value }">
-      <span
-        :class="[
-          'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
-          getStatusColor(value)
-        ]"
-      >
-        {{ getStatusLabel(value) }}
-      </span>
+      <StorageStatusBadge :status="value" />
     </template>
 
     <!-- Priority badge -->
     <template #cell-priority="{ value }">
-      <span
-        :class="[
-          'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
-          getPriorityColor(value)
-        ]"
-      >
-        {{ value }}
-      </span>
+      <PriorityBadge :priority="value" />
     </template>
 
     <!-- Storage Type badge -->
     <template #cell-storageType="{ value }">
-      <span
-        :class="[
-          'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
-          getStorageTypeColor(value)
-        ]"
-      >
-        {{ formatStorageType(value) }}
-      </span>
+      <StorageTypeBadge :storageType="value" />
     </template>
 
     <!-- Volume -->
@@ -96,6 +75,9 @@ import { BuildingStorefrontIcon, EyeIcon, CubeIcon } from '@heroicons/vue/24/out
 import DataTable from '~/components/ui-library/datatable/DataTable.vue'
 import { useWarehousingRequestsPaginated } from './warehousing-requests-api'
 import type { WarehousingRequestsFilters } from './warehousing-requests.model'
+import StorageStatusBadge from '~/components/badges/StorageStatusBadge.vue'
+import PriorityBadge from '~/components/badges/PriorityBadge.vue'
+import StorageTypeBadge from '~/components/badges/StorageTypeBadge.vue'
 
 interface Props {
   filters: WarehousingRequestsFilters
@@ -173,58 +155,6 @@ const rowActions = [
 ]
 
 // Utility functions
-const getStatusColor = (status: string) => {
-  const colors = {
-    'SUBMITTED': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-    'UNDER_REVIEW': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-    'APPROVED': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-    'PENDING_ARRIVAL': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
-    'RECEIVED': 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200',
-    'STORED': 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200',
-    'COMPLETED': 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
-  }
-  return colors[status as keyof typeof colors] || 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
-}
-
-const getStatusLabel = (status: string) => {
-  const labels = {
-    'SUBMITTED': 'Submitted',
-    'UNDER_REVIEW': 'Under Review',
-    'APPROVED': 'Approved',
-    'PENDING_ARRIVAL': 'Pending Arrival',
-    'RECEIVED': 'Received',
-    'STORED': 'Stored',
-    'COMPLETED': 'Completed'
-  }
-  return labels[status as keyof typeof labels] || status
-}
-
-const getPriorityColor = (priority: string) => {
-  const colors = {
-    'LOW': 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200',
-    'NORMAL': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-    'HIGH': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
-    'URGENT': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-  }
-  return colors[priority as keyof typeof colors] || 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
-}
-
-const getStorageTypeColor = (storageType: string) => {
-  const colors = {
-    'AMBIENT': 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200',
-    'REFRIGERATED': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-    'FROZEN': 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200',
-    'CLIMATE_CONTROLLED': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-    'HAZARDOUS': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-    'SECURE': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
-  }
-  return colors[storageType as keyof typeof colors] || 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
-}
-
-const formatStorageType = (storageType: string) => {
-  return storageType.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase())
-}
-
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat('en-US', {
     month: 'short',

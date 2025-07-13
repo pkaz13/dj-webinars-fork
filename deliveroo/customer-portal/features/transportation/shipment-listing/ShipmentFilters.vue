@@ -5,7 +5,7 @@
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Status
         </label>
-        <select v-model="localFilters.status" class="input">
+        <select v-model="store.filters.status" class="input">
           <option value="">All Statuses</option>
           <option 
             v-for="status in SHIPMENT_STATUSES" 
@@ -21,7 +21,7 @@
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Service Type
         </label>
-        <select v-model="localFilters.serviceType" class="input">
+        <select v-model="store.filters.serviceType" class="input">
           <option value="">All Types</option>
           <option 
             v-for="serviceType in SHIPMENT_SERVICE_TYPES" 
@@ -38,7 +38,7 @@
           Date Range
         </label>
         <input
-          v-model="localFilters.dateFrom"
+          v-model="store.filters.dateFrom"
           type="date"
           class="input"
           placeholder="From date"
@@ -58,52 +58,13 @@
 </template>
 
 <script setup lang="ts">
-import { 
-  type ShipmentFilters,
-  SHIPMENT_STATUSES,
-  SHIPMENT_SERVICE_TYPES
-} from './shipment-filters'
+import { SHIPMENT_STATUSES, SHIPMENT_SERVICE_TYPES } from './shipment-filters'
+import { inject } from 'vue'
+import type { useShipmentsListingStore } from './shipments-listing.store'
 
-interface Props {
-  filters?: ShipmentFilters
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  filters: () => ({
-    status: '',
-    serviceType: '',
-    dateFrom: ''
-  })
-})
-
-const emit = defineEmits<{
-  'update:filters': [filters: ShipmentFilters]
-  'clear-filters': []
-}>()
-
-// Local reactive copy of filters
-const localFilters = reactive<ShipmentFilters>({
-  status: props.filters.status,
-  serviceType: props.filters.serviceType,
-  dateFrom: props.filters.dateFrom
-})
-
-// Watch for external filter changes and update local state
-watch(() => props.filters, (newFilters) => {
-  localFilters.status = newFilters.status
-  localFilters.serviceType = newFilters.serviceType
-  localFilters.dateFrom = newFilters.dateFrom
-}, { deep: true })
-
-// Watch local filters and emit changes
-watch(localFilters, (newFilters) => {
-  emit('update:filters', { ...newFilters })
-}, { deep: true })
+const store = inject<ReturnType<typeof useShipmentsListingStore>>('shipmentsListing')!
 
 const clearFilters = () => {
-  localFilters.status = ''
-  localFilters.serviceType = ''
-  localFilters.dateFrom = ''
-  emit('clear-filters')
+  store.clearFilters()
 }
 </script> 

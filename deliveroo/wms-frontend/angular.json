@@ -5,7 +5,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "demo": {
+    "wms-frontend": {
       "architect": {
         "build": {
           "builder": "@angular/build:application",
@@ -22,17 +22,24 @@
               "namedChunks": false,
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false
+              "sourceMap": false,
+              "baseHref": "/wms/"
             }
           },
           "options": {
-            "assets": [],
+            "assets": [
+              "src/favicon.png"
+            ],
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "outputPath": "dist/demo",
-            "polyfills": ["zone.js"],
+            "outputPath": "dist/wms-frontend",
+            "polyfills": [
+              "zone.js"
+            ],
             "scripts": [],
-            "styles": ["src/global_styles.css"],
+            "styles": [
+              "src/global_styles.css"
+            ],
             "tsConfig": "tsconfig.app.json"
           }
         },
@@ -40,10 +47,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "development": {
-              "buildTarget": "demo:build:development"
+              "buildTarget": "wms-frontend:build:development"
             },
             "production": {
-              "buildTarget": "demo:build:production"
+              "buildTarget": "wms-frontend:build:production"
             }
           },
           "defaultConfiguration": "development"

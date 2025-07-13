@@ -17,7 +17,7 @@ banner = """
 """
 
 def create_sql_file():
-    with open("src/create-wms-schema.sql", "r", encoding="utf-8") as schema_file:
+    with open("schema/create-wms-schema.sql", "r", encoding="utf-8") as schema_file:
         create_table_sql = schema_file.read()
 
     output_dir = "output"
@@ -33,9 +33,9 @@ def create_sql_file():
         + "\n\n"
         + create_table_sql.strip()
         + "\n\n"
-        + result["sql"]
+        + "\n".join(result.lines)
     )
-    stats = result["stats"]
+    stats = result.stats
 
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(sql_script)

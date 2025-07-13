@@ -1,4 +1,4 @@
-import { CargoDocument } from '../cargo-management/cargo.model';
+import { CargoDocument } from '../features/cargo-management/cargo.model';
 
 export const MOCK_CARGO_DOCUMENTS: CargoDocument[] = [
     {

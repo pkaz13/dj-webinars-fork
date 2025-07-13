@@ -1,0 +1,26 @@
+{
+  "name": "wms-contract",
+  "author": "Developer Jutra",
+  "private": true,
+  "scripts": {
+    "swagger:serve": "swagger-ui-watcher ./wms.contract.yml --port 8080",
+    "generate:ts": "rimraf output/ts && orval && ./scripts/ts_naming.sh",
+    "sync:ts": "./scripts/ts_sync.sh",
+    "generate:python": "rimraf output/python && openapi-generator-cli generate --generator-key python-models && ./scripts/python_exclude_none.sh && ./scripts/python_package.sh",
+    "sync:python": "./scripts/python_sync.sh",
+    "generate:java": "rimraf output/java && openapi-generator-cli generate -i wms.contract.yml -g java -o ./output/java --additional-properties=groupId=com.deliveroo.wms,artifactId=wms-java-models,apiPackage=com.deliveroo.wms.api,modelPackage=com.deliveroo.wms.model --global-property=models --global-property=modelTests:false --global-property=modelDocs:false --global-property=apis:false --global-property=apiTests:false --global-property=apiDocs:false --global-property=supportingFiles:false && rimraf output/java/src/test output/java/docs",
+    "generate:all": "npm run generate:ts && npm run generate:python && npm run generate:java",
+    "generate:clean": "rimraf output",
+    "generate:watch": "nodemon --watch wms.contract.yml --exec \"npm run generate:clean && npm run generate:all\""
+  },
+  "dependencies": {
+    "prettier": "^3.6.2",
+    "swagger-ui-watcher": "^2.1.14"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.21.0",
+    "nodemon": "^3.1.10",
+    "orval": "^7.10.0",
+    "rimraf": "^6.0.1"
+  }
+}

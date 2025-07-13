@@ -5,3 +5,4 @@ grpcio
 requests
 sqlalchemy
 psycopg2-binary
+pydantic >= 2

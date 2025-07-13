@@ -7,14 +7,16 @@ import { LucideAngularModule, SquareChevronLeft, SquareChevronRight, Bell, LogOu
 import { AuthService } from './auth/auth.service';
 import { NotificationService, ToastNotification } from './notifications/notification.service';
 import { Notification } from './notifications/notification.model';
+import { Heading3Component } from './ui-library/Typography/Typography.component';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, 
-            LucideAngularModule],
+            LucideAngularModule, Heading3Component],
   template: `
     <div class="min-h-screen bg-gray-50 dark:bg-dark-900">
+      @if (isAuthenticated()) {
       <!-- Sidebar -->
       <div class="fixed inset-y-0 left-0 z-50 bg-white dark:bg-dark-800 shadow-lg transition-all duration-300 ease-in-out"
            [class.w-64]="!sidebarCollapsed"
@@ -160,16 +162,16 @@ import { Notification } from './notifications/notification.model';
               }
             </a>
 
-            <a routerLink="/customers" 
-               [class.active]="isRouteActive('/customers')"
+            <a routerLink="/contractors"
+               [class.active]="isRouteActive('/contractors')"
                class="sidebar-nav-item group"
                [class.justify-center]="sidebarCollapsed">
               <lucide-icon [img]="UsersIcon" size="20" class="flex-shrink-0"></lucide-icon>
               @if (!sidebarCollapsed) {
-                <span class="ml-3">Customers</span>
+                <span class="ml-3">Contractors</span>
               }
               @if (sidebarCollapsed) {
-                <div class="tooltip">Customers</div>
+                <div class="tooltip">Contractors</div>
               }
             </a>
 
@@ -263,7 +265,7 @@ import { Notification } from './notifications/notification.model';
                     <div class="absolute right-0 mt-2 w-80 bg-white dark:bg-dark-800 rounded-lg shadow-lg border border-gray-200 dark:border-dark-700 z-50">
                       <div class="p-4 border-b border-gray-200 dark:border-dark-700">
                         <div class="flex items-center justify-between">
-                          <h3 class="text-lg font-medium text-gray-900 dark:text-white">Notifications</h3>
+                          <ui-heading3>Notifications</ui-heading3>
                           <button (click)="markAllAsRead()" 
                                   class="text-sm text-primary-600 hover:text-primary-500">
                             Mark all read
@@ -316,7 +318,10 @@ import { Notification } from './notifications/notification.model';
                   </div>
                   <button (click)="logout()" 
                           class="p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
-                    <lucide-icon [img]="LogOutIcon" size="20"></lucide-icon>
+                          <div class="flex items-center">
+                            <span class="mr-2">Logout</span>
+                            <lucide-icon [img]="LogOutIcon" size="20"></lucide-icon>
+                          </div>
                   </button>
                 </div>
               </div>
@@ -328,6 +333,11 @@ import { Notification } from './notifications/notification.model';
           <router-outlet></router-outlet>
         </main>
       </div>
+      } @else {
+        <main class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-dark-900">
+          <router-outlet></router-outlet>
+        </main>
+      }
     </div>
     
     <!-- Toast Notifications Container -->
@@ -407,6 +417,7 @@ export class LayoutComponent implements OnInit {
   toastNotifications = this.notificationService.toastNotifications;
 
   currentUser = this.authService.currentUser;
+  isAuthenticated = this.authService.isAuthenticated;
 
   constructor() {
     effect(() => {
@@ -527,6 +538,6 @@ export class LayoutComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth/login']);
   }
 }

@@ -28,9 +28,9 @@
             >
               <option value="">Select storage type</option>
               <option value="AMBIENT">Ambient (15-25°C)</option>
-              <option value="REFRIGERATED">Refrigerated (2-8°C)</option>
+              <option value="PERISHABLE">Perishable (2-8°C)</option>
               <option value="FROZEN">Frozen (-18°C)</option>
-              <option value="CLIMATE_CONTROLLED">Climate Controlled</option>
+              <option value="DRY">Dry (15-25°C)</option>
               <option value="HAZARDOUS">Hazardous Materials</option>
               <option value="SECURE">High Security</option>
             </select>

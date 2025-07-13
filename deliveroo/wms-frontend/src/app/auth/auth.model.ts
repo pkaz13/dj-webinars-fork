@@ -1,4 +1,4 @@
-import { UserProfile } from '../user-management/user.model';
+import { UserProfile } from '../features/user-management/user.model';
 
 // User Authentication
 export interface LoginCredentials {

@@ -8,6 +8,7 @@ import { useShipmentDetailsQuery } from '@/http/shipments.queries';
 import StaticMapPlaceholder from '../../components/StaticMapPlaceholder';
 import { FleetMap } from '../vehicles/FleetMap';
 import { randomCoordinateCentralEurope } from '@/http/fleet-coordinates.mocks';
+import { generateShipmentRoutePDF } from '@/lib/shipmentRoutePdfGenerator'
 
 const ShipmentTracking = () => {
   const { id } = useParams();
@@ -164,6 +165,18 @@ const ShipmentTracking = () => {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="flex justify-end mt-6">
+            <Button onClick={() => generateShipmentRoutePDF({
+              id: shipment.id,
+              origin: shipment.origin,
+              destination: shipment.destination,
+              driver: shipment.driver,
+              eta: shipment.eta,
+              status: shipment.status
+            }, trackingEvents)}>
+              Generate Route PDF
+            </Button>
           </div>
         </CardContent>
       </Card>

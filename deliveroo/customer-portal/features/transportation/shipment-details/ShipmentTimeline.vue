@@ -66,6 +66,7 @@ import type { ShipmentTimelineData, ShipmentStatus } from './shipment-timeline.m
 
 interface Props {
   shipmentData: ShipmentTimelineData
+  disabledSteps?: number[]
 }
 
 interface Emits {
@@ -74,6 +75,10 @@ interface Emits {
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
+
+const isStepDisabled = (index: number) => {
+  return props.disabledSteps?.includes(index) || false
+}
 
 // State
 const activeStatusIndex = ref(props.shipmentData.currentStatusIndex)
@@ -116,7 +121,8 @@ const linePosition = computed(() => {
 
 // Methods
 const handleStatusClick = (index: number) => {
-  if (index <= props.shipmentData.currentStatusIndex) {
+  // Allow clicking if the step is not disabled
+  if (!isStepDisabled(index)) {
     activeStatusIndex.value = index
     emit('statusChange', index)
   }
@@ -145,7 +151,7 @@ const getStepPosition = (index: number): string => {
 const isActive = (index: number) => index === activeStatusIndex.value
 const isCompleted = (index: number) => index < props.shipmentData.currentStatusIndex
 const isCurrent = (index: number) => index === props.shipmentData.currentStatusIndex
-const isFuture = (index: number) => index > props.shipmentData.currentStatusIndex
+const isFuture = (index: number) => isStepDisabled(index)
 
 const getIconContainerClasses = (index: number) => {
   const classes = [
@@ -160,7 +166,7 @@ const getIconContainerClasses = (index: number) => {
   } else if (isCompleted(index)) {
     classes.push('bg-green-100 dark:bg-green-900 border-green-200 dark:border-green-800 hover:bg-green-200 dark:hover:bg-green-800')
   } else if (isFuture(index)) {
-    classes.push('bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 cursor-not-allowed')
+    classes.push('bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 cursor-not-allowed opacity-60')
   } else {
     classes.push('hover:scale-105')
   }

@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,6 +11,9 @@ import Login from "@/pages/Login";
 import Dashboard from "@/pages/Dashboard";
 import Orders from "@/pages/orders/Orders";
 import OrderDetails from "@/pages/orders/OrderDetails";
+import NewOrderForm from "@/pages/orders/NewOrderForm";
+import IncidentReportForm from "@/pages/Incident-new";
+import CustomerClaimForm from "@/pages/Claim-new";
 import Shipments from "@/pages/shipments/Shipments";
 import ShipmentTracking from "@/pages/shipments/ShipmentTracking";
 import Drivers from "@/pages/drivers/Drivers";
@@ -21,6 +23,8 @@ import Payments from "@/pages/Payments";
 import TrackFleet from "@/pages/vehicles/TruckFleet";
 import Incidents from "@/pages/Incidents";
 import Claims from "@/pages/Claims";
+import Expenses from "@/pages/Expenses";
+import ExpenseDetails from "@/pages/Expense-Details";
 import Urgent from "@/pages/Urgent";
 import Profile from "@/pages/Profile";
 import NotFound from "@/pages/NotFound";
@@ -55,6 +59,13 @@ const App = () => (
               <ProtectedRoute>
                 <Layout>
                   <Orders />
+                </Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/orders/new" element={
+              <ProtectedRoute>
+                <Layout>
+                  <NewOrderForm />
                 </Layout>
               </ProtectedRoute>
             } />
@@ -97,6 +108,34 @@ const App = () => (
               <ProtectedRoute>
                 <Layout>
                   <Trucks />
+                </Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/claims/new" element={
+              <ProtectedRoute>
+                <Layout>
+                  <CustomerClaimForm />
+                </Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/incidents/new" element={
+              <ProtectedRoute>
+                <Layout>
+                  <IncidentReportForm />
+                </Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/expenses" element={
+              <ProtectedRoute>
+                <Layout>
+                  <Expenses />
+                </Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/expenses/:id" element={
+              <ProtectedRoute>
+                <Layout>
+                  <ExpenseDetails />
                 </Layout>
               </ProtectedRoute>
             } />

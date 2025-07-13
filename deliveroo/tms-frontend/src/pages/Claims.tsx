@@ -1,11 +1,13 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { FileText, DollarSign, Clock, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 
 const Claims = () => {
+  const navigate = useNavigate();
   const [claims] = useState([
     {
       id: 'CLM001',
@@ -140,7 +142,10 @@ const Claims = () => {
           <h1 className="text-2xl font-bold text-gray-900">Claims</h1>
           <p className="text-gray-600">Manage customer complaints and compensation claims</p>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
+        <Button 
+          className="bg-blue-600 hover:bg-blue-700"
+          onClick={() => navigate('/claims/new')}
+        >
           Process New Claim
         </Button>
       </div>
